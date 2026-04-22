@@ -41,8 +41,8 @@ export default function App() {
   }
 
   return (
-    <main className="relative min-h-screen bg-sky-200">
-      <div className="flex min-h-screen items-center justify-center">
+    <main className="relative h-screen overflow-hidden bg-sky-200">
+      <div className="flex h-screen items-center justify-center">
         <HomeDesktop onOpenSection={handleOpenSection} />
       </div>
 
