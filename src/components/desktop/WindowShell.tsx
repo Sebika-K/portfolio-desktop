@@ -6,12 +6,16 @@ type WindowShellProps = {
   title: string
   onClose: () => void
   children: ReactNode
+  zIndex: number
+  onFocus: () => void
 }
 
 export default function WindowShell({
   title,
   onClose,
   children,
+  zIndex,
+  onFocus,
 }: WindowShellProps) {
   const defaultWidth = 760
   const defaultHeight = 500
@@ -34,8 +38,9 @@ export default function WindowShell({
       minWidth={420}
       minHeight={300}
       bounds="window"
+      style={{ zIndex }}
+      onMouseDown={onFocus}
       dragHandleClassName="window-drag-handle"
-      className="z-30"
     >
       <div className="flex h-full flex-col rounded-2xl border-2 border-neutral-800 bg-[#f6f1de] shadow-2xl">
         <div className="window-drag-handle flex cursor-move items-center justify-between rounded-t-2xl bg-orange-500 px-4 py-2 text-sm font-semibold text-white">

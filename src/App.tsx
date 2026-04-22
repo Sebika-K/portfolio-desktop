@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react"
+import { useState } from "react"
 import HomeDesktop from "./components/desktop/HomeDesktop"
 import WindowShell from "./components/desktop/WindowShell"
 import AboutContent from "./components/sections/AboutContent"
@@ -9,22 +9,34 @@ import SkillsContent from "./components/sections/SkillsContent"
 import { sections, type SectionId } from "./data/sections"
 
 export default function App() {
-  const [openSection, setOpenSection] = useState<SectionId | null>(null)
+  const [windows, setWindows] = useState<
+    { id: SectionId; zIndex: number }[]
+  >([])
 
   const handleOpenSection = (sectionId: SectionId) => {
-    setOpenSection(sectionId)
+    setWindows((prev) => {
+      const alreadyOpen = prev.find((w) => w.id === sectionId)
+
+      if (alreadyOpen) {
+        // bring to front
+        const maxZ = Math.max(...prev.map((w) => w.zIndex), 0)
+        return prev.map((w) =>
+          w.id === sectionId ? { ...w, zIndex: maxZ + 1 } : w
+        )
+      }
+
+      const maxZ = Math.max(...prev.map((w) => w.zIndex), 0)
+
+      return [...prev, { id: sectionId, zIndex: maxZ + 1 }]
+    })
   }
 
-  const handleCloseWindow = () => {
-    setOpenSection(null)
+  const handleCloseWindow = (sectionId: SectionId) => {
+    setWindows((prev) => prev.filter((w) => w.id !== sectionId))
   }
 
-  const windowTitle = useMemo(() => {
-    return sections.find((section) => section.id === openSection)?.title ?? ""
-  }, [openSection])
-
-  const renderContent = () => {
-    switch (openSection) {
+  const renderContent = (sectionId: SectionId) => {
+    switch (sectionId) {
       case "about":
         return <AboutContent />
       case "experience":
@@ -46,11 +58,24 @@ export default function App() {
         <HomeDesktop onOpenSection={handleOpenSection} />
       </div>
 
-      {openSection && (
-        <WindowShell title={windowTitle} onClose={handleCloseWindow}>
-          {renderContent()}
+      {windows.map((win) => (
+        <WindowShell
+          key={win.id}
+          title={sections.find((s) => s.id === win.id)?.title || ""}
+          onClose={() => handleCloseWindow(win.id)}
+          zIndex={win.zIndex}
+          onFocus={() => {
+            setWindows((prev) => {
+              const maxZ = Math.max(...prev.map((w) => w.zIndex), 0)
+              return prev.map((w) =>
+                w.id === win.id ? { ...w, zIndex: maxZ + 1 } : w
+              )
+            })
+          }}
+        >
+          {renderContent(win.id)}
         </WindowShell>
-      )}
+      ))}
     </main>
   )
 }
