@@ -1,8 +1,8 @@
 export const sections = [
-  { id: "about", title: "About" },
+  { id: "about", title: "About Me" },
   { id: "experience", title: "Experience" },
   { id: "projects", title: "Projects" },
-  { id: "skills", title: "Skills" },
+  { id: "skills", title: "Skills & Involvements" },
   { id: "contact", title: "Contact" },
 ] as const
 
