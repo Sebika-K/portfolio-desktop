@@ -79,18 +79,20 @@ export default function App() {
         <HomeDesktop onOpenSection={handleOpenSection} />
       </div>
 
-      {!isMobile &&
-        windows.map((win) => (
-          <WindowShell
-            key={win.id}
-            title={sections.find((s) => s.id === win.id)?.title || ""}
-            onClose={() => handleCloseWindow(win.id)}
-            zIndex={win.zIndex}
-            onFocus={() => bringToFront(win.id)}
-          >
-            {renderContent(win.id)}
-          </WindowShell>
-        ))}
+      <AnimatePresence>
+        {!isMobile &&
+          windows.map((win) => (
+            <WindowShell
+              key={win.id}
+              title={sections.find((s) => s.id === win.id)?.title || ""}
+              onClose={() => handleCloseWindow(win.id)}
+              zIndex={win.zIndex}
+              onFocus={() => bringToFront(win.id)}
+            >
+              {renderContent(win.id)}
+            </WindowShell>
+          ))}   
+      </AnimatePresence>
 
       <AnimatePresence>
         {isMobile && mobileSection && (
