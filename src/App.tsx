@@ -74,7 +74,7 @@ export default function App() {
   }
 
   return (
-    <main className="relative h-screen overflow-hidden bg-sky-200">
+    <main className="relative h-screen overflow-hidden bg-[#ADD8E6]">
       <div className="flex h-screen items-center justify-center">
         <HomeDesktop onOpenSection={handleOpenSection} />
       </div>

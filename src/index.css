@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
 @import "tailwindcss";
 
 html,
@@ -10,4 +11,7 @@ body,
 
 body {
   min-height: 100vh;
+}
+.font-indie {
+  font-family: "Indie Flower", cursive;
 }
