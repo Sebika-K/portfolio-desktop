@@ -40,8 +40,12 @@ export default function HomeDesktop({ onOpenSection }: HomeDesktopProps) {
               onClick={() => onOpenSection(item.id)}
               className="flex flex-col items-center gap-2 rounded-lg p-2 transition hover:scale-105"
             >
-              <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-neutral-300 bg-white text-2xl shadow-sm">
-                📁
+              <div className="flex h-14 w-14 items-center justify-center rounded-xl border border-neutral-300 bg-white shadow-sm">
+                <img
+                  src={item.icon}
+                  alt={`${item.title} icon`}
+                  className="h-10 w-10 object-contain"
+                />
               </div>
 
               <span className="text-xs font-medium text-neutral-700">
