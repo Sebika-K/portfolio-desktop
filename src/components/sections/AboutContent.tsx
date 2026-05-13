@@ -4,9 +4,9 @@ export default function AboutContent() {
       {/* Top section */}
       <div className="flex flex-col items-center gap-6 text-center md:flex-row md:items-start md:text-left">
         {/* Profile Image */}
-        <div className="h-28 w-28 overflow-hidden rounded-full border-2 border-neutral-800">
+        <div className="h-28 w-35 overflow-hidden rounded-full border border-[#CC5500]/80">
           <img
-            src="/profile.png"
+            src="/profile.jpg"
             alt="Sebika"
             className="h-full w-full object-cover"
           />
@@ -14,14 +14,14 @@ export default function AboutContent() {
 
         {/* Name + Subtitle */}
         <div>
-          <h2 className="text-3xl font-bold tracking-wide text-orange-500 md:text-4xl">
+          <h2 className="text-3xl font-bold tracking-wide text-[#EF8E39] md:text-4xl">
             Sebika Khulal
           </h2>
 
           <p className="mt-2 text-sm leading-6 text-neutral-600">
             Software Engineer | Frontend Focus | React, TypeScript |
             Full-Stack (Flask, Node) | Student Ambassador @
-            <span className="text-orange-500"> Adobe</span>
+            <span className="text-[#EF8E39]"> Adobe</span>
           </p>
         </div>
       </div>
