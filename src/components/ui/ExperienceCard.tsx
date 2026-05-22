@@ -14,7 +14,7 @@ export default function ExperienceCard({
           <h3 className="text-lg font-bold text-neutral-800">
             {experience.company}
           </h3>
-          <p className="text-sm font-semibold text-orange-500">
+          <p className="text-sm font-semibold text-[#EF8E39]">
             {experience.role}
           </p>
         </div>

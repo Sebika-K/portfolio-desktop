@@ -19,9 +19,9 @@ export default function MobilePanel({
         animate={{ y: 0 }}
         exit={{ y: "100%" }}
         transition={{ duration: 0.35, ease: "easeInOut" }}
-        className="absolute bottom-0 left-0 right-0 h-[78vh] rounded-t-3xl border-x-2 border-t-2 border-neutral-800 bg-[#f6f1de] shadow-2xl"
+        className="absolute bottom-0 left-0 right-0 h-[78vh] rounded-t-3xl border-x-2 border border-[#673C33]/25 bg-[#F1F0DD] shadow-2xl"
       >
-        <div className="flex items-center justify-between rounded-t-3xl bg-orange-500 px-4 py-3 text-sm font-semibold text-white">
+        <div className="flex items-center justify-between rounded-t-3xl  bg-[#CC5500]/80 px-4 py-3 text-sm font-semibold text-white">
           <span>:] {title}</span>
           <button
             type="button"

@@ -5,7 +5,7 @@ export default function ExperienceContent() {
   return (
     <div className="space-y-6 text-neutral-700">
       <div>
-        <h2 className="text-3xl font-bold text-orange-500">Experience</h2>
+        <h2 className="text-3xl font-bold text-[#EF8E39]">Experience</h2>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">
           A few roles where I’ve been able to grow as an engineer, collaborator,
           and builder while working across design, frontend development, and
