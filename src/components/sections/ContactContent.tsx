@@ -12,10 +12,21 @@ export default function ContactContent() {
   const [email, setEmail] = useState("")
   const [message, setMessage] = useState("")
   const [status, setStatus] = useState<Status>("idle")
+  // Spam trap ("honeypot"): a hidden checkbox people never see, but bots
+  // that fill in every field will tick. If it's ticked, it's a bot.
+  const [botcheck, setBotcheck] = useState(false)
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     // Stop the browser's default "reload the page" behavior on submit.
     event.preventDefault()
+
+    // A bot ticked the hidden box: pretend it worked, but don't send anything.
+    // (Pretending means the bot doesn't learn it was caught.)
+    if (botcheck) {
+      setStatus("success")
+      return
+    }
+
     setStatus("sending")
 
     try {
@@ -31,6 +42,8 @@ export default function ContactContent() {
           name,
           email,
           message,
+          // Web3Forms also rejects the message on its side if this is true.
+          botcheck,
         }),
       })
       const result = await response.json()
@@ -63,6 +76,20 @@ export default function ContactContent() {
         {/* Form side */}
         <div className="rounded-2xl border border-line bg-panel/70 p-5 shadow-sm">
           <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Honeypot: hidden from people (display: none), skipped by the
+                Tab key (tabIndex -1), ignored by screen readers (aria-hidden),
+                and not auto-filled by the browser (autoComplete off). */}
+            <input
+              type="checkbox"
+              name="botcheck"
+              className="hidden"
+              tabIndex={-1}
+              aria-hidden="true"
+              autoComplete="off"
+              checked={botcheck}
+              onChange={(e) => setBotcheck(e.target.checked)}
+            />
+
             <div>
               <label
                 htmlFor="fullName"
