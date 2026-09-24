@@ -15,14 +15,3 @@ body {
 .font-indie {
   font-family: "Indie Flower", cursive;
 }
-@keyframes sparkLine {
-  0% {
-    opacity: 1;
-    transform: rotate(var(--angle)) translateX(0) scaleX(1);
-  }
-
-  100% {
-    opacity: 0;
-    transform: rotate(var(--angle)) translateX(24px) scaleX(0.2);
-  }
-}

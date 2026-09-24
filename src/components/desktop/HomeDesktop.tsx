@@ -1,5 +1,4 @@
 import { sections, type SectionId } from "../../data/sections";
-import ClickSpark from "../ui/ClickSpark";
 
 type HomeDesktopProps = {
   onOpenSection: (sectionId: SectionId) => void;
@@ -30,22 +29,21 @@ export default function HomeDesktop({ onOpenSection }: HomeDesktopProps) {
           {/* Icons */}
           <div className="grid grid-cols-3 gap-8 sm:grid-cols-5 sm:gap-12">
             {sections.map((item) => (
-              <ClickSpark key={item.id}>
-                <button
-                  onClick={() => onOpenSection(item.id)}
-                  className="flex flex-col items-center gap-2 rounded-lg p-2 transition hover:scale-105"
-                >
-                  <img
-                    src={item.icon}
-                    alt={item.title}
-                    className="h-16 w-16 object-contain"
-                  />
+              <button
+                key={item.id}
+                onClick={() => onOpenSection(item.id)}
+                className="flex flex-col items-center gap-2 rounded-lg p-2 transition hover:scale-105"
+              >
+                <img
+                  src={item.icon}
+                  alt={item.title}
+                  className="h-16 w-16 object-contain"
+                />
 
-                  <span className="text-xs font-medium text-neutral-700">
-                    {item.title}
-                  </span>
-                </button>
-              </ClickSpark>
+                <span className="text-xs font-medium text-neutral-700">
+                  {item.title}
+                </span>
+              </button>
             ))}
           </div>
         </div>
