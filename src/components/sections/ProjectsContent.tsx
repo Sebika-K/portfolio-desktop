@@ -3,10 +3,10 @@ import { projects } from "../../data/projects"
 
 export default function ProjectsContent() {
   return (
-    <div className="space-y-6 text-neutral-700">
+    <div className="space-y-6 text-text">
       <div>
-        <h2 className="text-3xl font-bold text-[#EF8E39]">Projects</h2>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">
+        <h2 className="text-3xl font-bold text-accent">Projects</h2>
+        <p className="mt-2 max-w-2xl text-sm leading-6 text-text-muted">
           A few projects that reflect both sides of how I like to build:
           thoughtful user experience design and solid technical implementation.
         </p>

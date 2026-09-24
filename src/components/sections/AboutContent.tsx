@@ -1,10 +1,10 @@
 export default function AboutContent() {
   return (
-    <div className="space-y-6 text-neutral-800">
+    <div className="space-y-6 text-text-strong">
       {/* Top section */}
       <div className="flex flex-col items-center gap-6 text-center md:flex-row md:items-start md:text-left">
         {/* Profile Image */}
-        <div className="h-28 w-35 overflow-hidden rounded-full border border-[#CC5500]/80">
+        <div className="h-28 w-35 overflow-hidden rounded-full border border-accent">
           <img
             src="/profile.jpg"
             alt="Sebika"
@@ -14,20 +14,20 @@ export default function AboutContent() {
 
         {/* Name + Subtitle */}
         <div>
-          <h2 className="text-3xl font-bold tracking-wide text-[#EF8E39] md:text-4xl">
+          <h2 className="text-3xl font-bold tracking-wide text-accent md:text-4xl">
             Sebika Khulal
           </h2>
 
-          <p className="mt-2 text-sm leading-6 text-neutral-600">
+          <p className="mt-2 text-sm leading-6 text-text-muted">
             Software Engineer | Frontend Focus | React, TypeScript |
             Full-Stack (Flask, Node) | Student Ambassador @
-            <span className="text-[#EF8E39]"> Adobe</span>
+            <span className="text-accent"> Adobe</span>
           </p>
         </div>
       </div>
 
       {/* Intro */}
-      <div className="space-y-3 text-sm leading-7 text-neutral-700 md:text-base">
+      <div className="space-y-3 text-sm leading-7 text-text md:text-base">
         <p>
           Hi! I am Sebika, a coder, a designer, a thinker. I started with coding,
           and fell in love with learning designs on the way. I am a full stack
@@ -49,30 +49,30 @@ export default function AboutContent() {
 
       {/* Education */}
       <div className="space-y-2">
-        <h3 className="text-sm font-bold tracking-wide text-neutral-900">
+        <h3 className="text-sm font-bold tracking-wide text-text-strong">
           EDUCATION
         </h3>
 
-        <p className="text-sm text-neutral-700">
+        <p className="text-sm text-text">
           Texas State University - San Marcos, TX
         </p>
 
-        <p className="text-sm font-semibold text-neutral-800">
+        <p className="text-sm font-semibold text-text-strong">
           Bachelor of Science in Computer Science with Honors
         </p>
 
-        <p className="text-sm text-neutral-600">
+        <p className="text-sm text-text-muted">
           Cumulative GPA: 3.7 | Expected Graduation: December 2026
         </p>
       </div>
 
       {/* Mini Goals */}
       <div className="space-y-2">
-        <h3 className="text-sm font-bold tracking-wide text-neutral-900">
+        <h3 className="text-sm font-bold tracking-wide text-text-strong">
           MINI GOALS
         </h3>
 
-        <ul className="text-sm text-neutral-700">
+        <ul className="text-sm text-text">
           <li>Hike to Yosemite</li>
           <li>Watch more sunsets</li>
           <li>See Aurora</li>
@@ -85,7 +85,7 @@ export default function AboutContent() {
 
       {/* Fun elements */}
       <div className="flex justify-end gap-3">
-        <div className="h-12 w-12 overflow-hidden rounded-full border-2 border-neutral-800">
+        <div className="h-12 w-12 overflow-hidden rounded-full border-2 border-outline">
           <img
             src="/avatar.png"
             alt="avatar"

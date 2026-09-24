@@ -6,12 +6,12 @@ import {
 
 export default function SkillsContent() {
   return (
-    <div className="space-y-8 text-neutral-700">
+    <div className="space-y-8 text-text">
       <div>
-        <h2 className="text-3xl font-bold text-[#EF8E39]">
+        <h2 className="text-3xl font-bold text-accent">
           Skills & Involvements
         </h2>
-        <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">
+        <p className="mt-2 max-w-2xl text-sm leading-6 text-text-muted">
           A mix of technical tools, creative interests, and communities that
           shape how I build and learn.
         </p>
@@ -29,11 +29,11 @@ export default function SkillsContent() {
 
       {/* Involvements */}
       <div className="space-y-2">
-        <h3 className="text-sm font-bold uppercase tracking-wide text-neutral-900">
+        <h3 className="text-sm font-bold uppercase tracking-wide text-text-strong">
           Involvements
         </h3>
 
-        <p className="text-sm leading-6 text-neutral-700">
+        <p className="text-sm leading-6 text-text">
           SWE (TXST), Rewriting the Code, IEEE — active member contributing to
           women-in-tech and computer science initiatives
         </p>
@@ -41,17 +41,17 @@ export default function SkillsContent() {
 
       {/* Honors */}
       <div className="space-y-2">
-        <h3 className="text-sm font-bold uppercase tracking-wide text-neutral-900">
+        <h3 className="text-sm font-bold uppercase tracking-wide text-text-strong">
           Honors & Affiliations
         </h3>
 
-        <p className="text-sm leading-6 text-neutral-700">
+        <p className="text-sm leading-6 text-text">
           Adobe Student Ambassador • Dean’s List (7 semesters)
         </p>
       </div>
 
-      <div className="rounded-2xl border border-neutral-300 bg-[#efe8d7]/70 px-4 py-5">
-        <h3 className="text-sm font-bold uppercase tracking-wide text-neutral-900">
+      <div className="rounded-2xl border border-line bg-panel/70 px-4 py-5">
+        <h3 className="text-sm font-bold uppercase tracking-wide text-text-strong">
           Tech I Like Working With
         </h3>
 
@@ -59,7 +59,7 @@ export default function SkillsContent() {
           {bottomTechIcons.map((item) => (
             <div
               key={item}
-              className="rounded-xl border border-neutral-300 bg-white px-4 py-2 text-sm font-medium text-neutral-700 shadow-sm"
+              className="rounded-xl border border-line bg-card px-4 py-2 text-sm font-medium text-text shadow-sm"
             >
               {item}
             </div>

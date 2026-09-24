@@ -6,8 +6,8 @@ type ProjectCardProps = {
 
 export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <article className="overflow-hidden rounded-2xl border-2 border-neutral-800 bg-white shadow-md">
-      <div className="flex h-44 items-center justify-center border-b-2 border-neutral-200 bg-[#f3ede0] text-center text-neutral-500">
+    <article className="overflow-hidden rounded-2xl border-2 border-outline bg-card shadow-md">
+      <div className="flex h-44 items-center justify-center border-b-2 border-line bg-cream text-center text-text-faint">
         <span className="px-4 text-sm font-medium">
           Project Preview Coming Soon
         </span>
@@ -15,8 +15,8 @@ export default function ProjectCard({ project }: ProjectCardProps) {
 
       <div className="space-y-4 p-5">
         <div>
-          <h3 className="text-xl font-bold text-neutral-800">{project.title}</h3>
-          <p className="mt-2 text-sm leading-6 text-neutral-600">
+          <h3 className="text-xl font-bold text-text-strong">{project.title}</h3>
+          <p className="mt-2 text-sm leading-6 text-text-muted">
             {project.description}
           </p>
         </div>
@@ -26,7 +26,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             {project.tags.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-neutral-300 bg-[#f8f4ea] px-3 py-1 text-xs font-medium text-neutral-700"
+                className="rounded-full border border-line bg-cream px-3 py-1 text-xs font-medium text-text"
               >
                 {tag}
               </span>
@@ -39,7 +39,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             href={project.githubUrl}
             target="_blank"
             rel="noreferrer"
-            className="rounded-lg border-2 border-neutral-800 bg-[#EF8E39] px-4 py-2 text-sm font-semibold text-white transition hover:translate-y-[-1px]"
+            className="rounded-lg border-2 border-outline bg-accent px-4 py-2 text-sm font-semibold text-on-accent transition hover:translate-y-[-1px]"
           >
             GitHub
           </a>
@@ -49,7 +49,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
               href={project.liveUrl}
               target="_blank"
               rel="noreferrer"
-              className="rounded-lg border-2 border-neutral-800 bg-[#f6f1de] px-4 py-2 text-sm font-semibold text-neutral-800 transition hover:translate-y-[-1px]"
+              className="rounded-lg border-2 border-outline bg-cream px-4 py-2 text-sm font-semibold text-text-strong transition hover:translate-y-[-1px]"
             >
               Learn More
             </a>
@@ -57,7 +57,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             <button
               type="button"
               disabled
-              className="cursor-not-allowed rounded-lg border-2 border-neutral-300 bg-neutral-100 px-4 py-2 text-sm font-semibold text-neutral-400"
+              className="cursor-not-allowed rounded-lg border-2 border-line bg-cream/50 px-4 py-2 text-sm font-semibold text-text-faint"
             >
               Learn More
             </button>

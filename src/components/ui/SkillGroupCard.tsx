@@ -8,8 +8,8 @@ export default function SkillGroupCard({
   items,
 }: SkillGroupCardProps) {
   return (
-    <article className="rounded-2xl border border-neutral-300 bg-white/70 p-4 shadow-sm">
-      <h3 className="text-sm font-bold uppercase tracking-wide text-neutral-800">
+    <article className="rounded-2xl border border-line bg-card/70 p-4 shadow-sm">
+      <h3 className="text-sm font-bold uppercase tracking-wide text-text-strong">
         {title}
       </h3>
 
@@ -17,7 +17,7 @@ export default function SkillGroupCard({
         {items.map((item) => (
           <span
             key={item}
-            className="rounded-full border border-neutral-300 bg-[#f8f4ea] px-3 py-1 text-xs font-medium text-neutral-700"
+            className="rounded-full border border-line bg-cream px-3 py-1 text-xs font-medium text-text"
           >
             {item}
           </span>

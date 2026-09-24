@@ -21,6 +21,19 @@
   --color-accent: #ef8e39; /* highlight color (your name, section titles) */
   --color-text: #404040; /* normal text */
   --color-text-muted: #525252; /* softer/secondary text */
+  --color-text-strong: #262626; /* titles inside windows */
+  --color-text-faint: #737373; /* dates, placeholders, disabled */
+  --color-on-accent: #ffffff; /* text sitting on an accent-colored button */
+
+  /* Surfaces inside windows */
+  --color-panel: #efe8d7; /* inset areas that hold cards */
+  --color-card: #ffffff; /* cards, inputs, pills */
+  --color-cream: #f6f1de; /* tags, image placeholders, secondary buttons */
+
+  /* Lines */
+  --color-line: #d4d4d4; /* soft borders */
+  --color-line-strong: #a3a3a3; /* dashed placeholder border */
+  --color-outline: #262626; /* bold outlines on cards and buttons */
 }
 
 .dark {
@@ -36,6 +49,17 @@
   --color-accent: #b8f3f9; /* light cyan */
   --color-text: #ffffff;
   --color-text-muted: #e5e5e5;
+  --color-text-strong: #ffffff;
+  --color-text-faint: #a3a3a3;
+  --color-on-accent: #16213a; /* navy text on cyan buttons */
+
+  --color-panel: #0f1830; /* darker navy */
+  --color-card: #1f2d4d; /* lighter navy */
+  --color-cream: #2a3a5e;
+
+  --color-line: rgb(255 255 255 / 0.2);
+  --color-line-strong: rgb(255 255 255 / 0.4);
+  --color-outline: #ffffff;
 }
 
 html,
