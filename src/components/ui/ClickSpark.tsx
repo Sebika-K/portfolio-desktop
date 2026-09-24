@@ -41,8 +41,19 @@ export default function ClickSpark({ children }: ClickSparkProps) {
             transform: `translate(${spark.x}px, ${spark.y}px)`,
           }}
         >
-          <span className="absolute h-2 w-2 animate-ping rounded-full bg-[#EF8E39]" />
-          <span className="absolute -left-3 -top-3 h-8 w-8 animate-[spark_0.6s_ease-out_forwards] rounded-full border-2 border-[#EF8E39]" />
+          {Array.from({ length: 10 }).map((_, i) => {
+            const angle = (360 / 10) * i
+
+            return (
+              <span
+                key={i}
+                className="absolute h-[2px] w-3 origin-left rounded-full bg-[#EF8E39] animate-[sparkLine_0.5s_ease-out_forwards]"
+                style={{
+                  transform: `rotate(${angle}deg)`,
+                }}
+              />
+            )
+          })}
         </span>
       ))}
     </div>

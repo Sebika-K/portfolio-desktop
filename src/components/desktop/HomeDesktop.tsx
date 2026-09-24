@@ -1,24 +1,17 @@
-import { sections, type SectionId } from "../../data/sections"
-import ClickSpark from "../ui/ClickSpark"
+import { sections, type SectionId } from "../../data/sections";
+import ClickSpark from "../ui/ClickSpark";
 
 type HomeDesktopProps = {
-  onOpenSection: (sectionId: SectionId) => void
-}
+  onOpenSection: (sectionId: SectionId) => void;
+};
 
 export default function HomeDesktop({ onOpenSection }: HomeDesktopProps) {
   return (
     <div className="flex flex-col items-center gap-5">
       <div className="w-[837px] h-[501px] rounded-[12px] border border-[#673C33]/25 bg-[#F1F0DD] shadow-xl max-md:w-[92vw] max-md:h-auto">
         {/* Top Bar */}
-        <div className="flex items-center justify-between rounded-t-[12px] bg-[#CC5500]/80 px-4 py-2 text-m font-semibold text-white">
+        <div className="flex items-center justify-between rounded-t-[12px] bg-[#CC5500]/80 px-4 py-2 text-sm font-semibold text-white">
           <span>:) Home</span>
-
-          <button
-            type="button"
-            className="rounded bg-white/20 px-2 py-1 text-xs"
-          >
-            ☀
-          </button>
         </div>
 
         {/* Content */}
@@ -66,9 +59,6 @@ export default function HomeDesktop({ onOpenSection }: HomeDesktopProps) {
           gh
         </a>
       </div>
-
-
     </div>
-    
-  )
+  );
 }

@@ -39,7 +39,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
             href={project.githubUrl}
             target="_blank"
             rel="noreferrer"
-            className="rounded-lg border-2 border-neutral-800 bg-orange-500 px-4 py-2 text-sm font-semibold text-white transition hover:translate-y-[-1px]"
+            className="rounded-lg border-2 border-neutral-800 bg-[#EF8E39] px-4 py-2 text-sm font-semibold text-white transition hover:translate-y-[-1px]"
           >
             GitHub
           </a>

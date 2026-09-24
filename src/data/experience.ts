@@ -31,7 +31,7 @@ export const experiences: ExperienceItem[] = [
   {
     id: "physics-lab",
     company: "Texas State University",
-    role: "Instruction Assistant — Physics Lab",
+    role: "Instruction Assistant - Physics Lab",
     period: "2025 – Present",
     bullets: [
       "Supported students during lab sessions by guiding experiments, answering questions, and helping explain core concepts.",

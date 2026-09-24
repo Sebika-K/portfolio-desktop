@@ -2,7 +2,7 @@ export default function ContactContent() {
   return (
     <div className="space-y-6 text-neutral-700">
       <div>
-        <h2 className="text-3xl font-bold text-orange-500">Contact</h2>
+        <h2 className="text-3xl font-bold text-[#EF8E39]">Contact</h2>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">
           Feel free to reach out for opportunities, collaborations, or just to say hi.
         </p>
@@ -59,7 +59,7 @@ export default function ContactContent() {
 
             <button
               type="submit"
-              className="rounded-lg border-2 border-neutral-800 bg-orange-500 px-5 py-2 text-sm font-semibold text-white transition hover:translate-y-[-1px]"
+              className="rounded-lg border-2 border-neutral-800 bg-[#EF8E39] px-5 py-2 text-sm font-semibold text-white transition hover:translate-y-[-1px]"
             >
               Send
             </button>

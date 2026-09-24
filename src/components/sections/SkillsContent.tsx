@@ -8,7 +8,7 @@ export default function SkillsContent() {
   return (
     <div className="space-y-8 text-neutral-700">
       <div>
-        <h2 className="text-3xl font-bold text-orange-500">
+        <h2 className="text-3xl font-bold text-[#EF8E39]">
           Skills & Involvements
         </h2>
         <p className="mt-2 max-w-2xl text-sm leading-6 text-neutral-600">

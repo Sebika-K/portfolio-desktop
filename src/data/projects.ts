@@ -37,7 +37,7 @@ export const projects: Project[] = [
     id: "coffee-dunk",
     title: "CoffeeDunk",
     description:
-      "A social café discovery app where users can share coffee photos, leave ratings and captions for specific cafés, and help others decide where to go based on real customer experiences.",
+      "A social cafe discovery app where users can share coffee photos, leave ratings and captions for specific cafés, and help others decide where to go based on real customer experiences.",
     githubUrl: "https://github.com/Sebika-K/coffee-dunk",
     tags: ["Flask", "Firebase", "Social App", "Product Design"],
   },
