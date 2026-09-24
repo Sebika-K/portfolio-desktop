@@ -9,11 +9,33 @@
 @theme {
   --color-page: #add8e6; /* screen background */
   --color-icon: #444444; /* toggle + social icons */
+
+  /* Windows (Home, section windows, mobile panel) */
+  --color-window: #f1f0dd; /* window body */
+  --color-window-border: rgb(103 60 51 / 0.25); /* outline around windows */
+  --color-titlebar: rgb(204 85 0 / 0.8); /* title bar background */
+  --color-titlebar-line: transparent; /* line under the title bar */
+
+  /* Text */
+  --color-heading: #807d7d; /* big "Hi!" heading */
+  --color-accent: #ef8e39; /* highlight color (your name, section titles) */
+  --color-text: #404040; /* normal text */
+  --color-text-muted: #525252; /* softer/secondary text */
 }
 
 .dark {
   --color-page: #1a1a1a;
   --color-icon: #ffffff;
+
+  --color-window: #16213a; /* navy */
+  --color-window-border: #ffffff;
+  --color-titlebar: #1a1a1a;
+  --color-titlebar-line: #ffffff;
+
+  --color-heading: #ffffff;
+  --color-accent: #b8f3f9; /* light cyan */
+  --color-text: #ffffff;
+  --color-text-muted: #e5e5e5;
 }
 
 html,
