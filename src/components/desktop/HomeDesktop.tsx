@@ -1,10 +1,15 @@
 import { sections, type SectionId } from "../../data/sections";
+import SocialLinks from "../ui/SocialLinks";
 
 type HomeDesktopProps = {
   onOpenSection: (sectionId: SectionId) => void;
+  isDark: boolean;
 };
 
-export default function HomeDesktop({ onOpenSection }: HomeDesktopProps) {
+export default function HomeDesktop({
+  onOpenSection,
+  isDark,
+}: HomeDesktopProps) {
   return (
     <div className="flex flex-col items-center gap-5">
       <div className="w-[837px] h-[501px] rounded-[12px] border border-[#673C33]/25 bg-[#F1F0DD] shadow-xl max-md:w-[92vw] max-md:h-auto">
@@ -49,14 +54,7 @@ export default function HomeDesktop({ onOpenSection }: HomeDesktopProps) {
         </div>
       </div>
       {/* Socials */}
-      <div className="flex gap-6 text-3xl text-neutral-600">
-        <a href="#" aria-label="LinkedIn">
-          in
-        </a>
-        <a href="#" aria-label="GitHub">
-          gh
-        </a>
-      </div>
+      <SocialLinks isDark={isDark} />
     </div>
   );
 }
