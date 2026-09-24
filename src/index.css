@@ -34,6 +34,7 @@
   --color-line: #d4d4d4; /* soft borders */
   --color-line-strong: #a3a3a3; /* dashed placeholder border */
   --color-outline: #262626; /* bold outlines on cards and buttons */
+  --color-scrollbar: rgb(0 0 0 / 0.25); /* scrollbar handle */
 }
 
 .dark {
@@ -60,6 +61,7 @@
   --color-line: rgb(255 255 255 / 0.2);
   --color-line-strong: rgb(255 255 255 / 0.4);
   --color-outline: #ffffff;
+  --color-scrollbar: rgb(255 255 255 / 0.3);
 }
 
 html,
@@ -75,4 +77,31 @@ body {
 }
 .font-indie {
   font-family: "Indie Flower", cursive;
+}
+
+/* ---------- Thin scrollbars ----------
+   The desktop is scaled up to fit the screen (see useFitScale), and the
+   browser's normal scrollbar gets scaled up with it, making it very thick.
+   --scale is set on the stage in App.tsx, so dividing by it keeps the
+   scrollbar the same thin size on screen no matter how much we scale. */
+::-webkit-scrollbar {
+  width: calc(8px / var(--scale, 1));
+  height: calc(8px / var(--scale, 1));
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-scrollbar);
+  border-radius: 9999px;
+}
+
+/* Firefox doesn't support the rules above, so it gets the standard version.
+   (Only for browsers without ::-webkit-scrollbar, because in Chrome these
+   standard rules would switch off the custom ones above.) */
+@supports not selector(::-webkit-scrollbar) {
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-scrollbar) transparent;
+  }
 }

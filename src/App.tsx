@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import HomeDesktop from "./components/desktop/HomeDesktop";
 import WindowShell from "./components/desktop/WindowShell";
 import MobilePanel from "./components/mobile/MobilePanel";
@@ -98,7 +98,9 @@ export default function App() {
           width: `calc(100vw / ${scale})`,
           height: `calc(100vh / ${scale})`,
           transform: `scale(${scale})`,
-        }}
+          // Shared with CSS (index.css uses it to keep scrollbars thin).
+          "--scale": scale,
+        } as CSSProperties}
       >
         {/* Dark/light toggle, pinned to the top-left corner of the screen */}
         <div className="fixed top-4 left-4 z-[1000]">
