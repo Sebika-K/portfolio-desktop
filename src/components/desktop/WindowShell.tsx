@@ -1,5 +1,5 @@
 import type { ReactNode } from "react"
-import { useMemo } from "react"
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { Rnd } from "react-rnd"
 
@@ -9,6 +9,9 @@ type WindowShellProps = {
   children: ReactNode
   zIndex: number
   onFocus: () => void
+  // How much the desktop is scaled (see useFitScale). react-rnd needs it so a
+  // window follows the mouse exactly while dragging/resizing.
+  scale: number
 }
 
 export default function WindowShell({
@@ -17,13 +20,16 @@ export default function WindowShell({
   children,
   zIndex,
   onFocus,
+  scale,
 }: WindowShellProps) {
   const defaultWidth = 760
   const defaultHeight = 500
 
-  const defaultPosition = useMemo(() => {
-    const x = Math.max((window.innerWidth - defaultWidth) / 2, 40)
-    const y = Math.max((window.innerHeight - defaultHeight) / 2, 40)
+  // Worked out once, when the window first opens (useState's starter function).
+  const [defaultPosition] = useState(() => {
+    // The stage is (screen size / scale) wide, so center within that.
+    const x = Math.max((window.innerWidth / scale - defaultWidth) / 2, 40)
+    const y = Math.max((window.innerHeight / scale - defaultHeight) / 2, 40)
 
     return {
       x,
@@ -31,14 +37,15 @@ export default function WindowShell({
       width: defaultWidth,
       height: defaultHeight,
     }
-  }, [])
+  })
 
   return (
     <Rnd
       default={defaultPosition}
       minWidth={420}
       minHeight={300}
-      bounds="window"
+      bounds="parent"
+      scale={scale}
       style={{ zIndex }}
       onMouseDown={onFocus}
       dragHandleClassName="window-drag-handle"

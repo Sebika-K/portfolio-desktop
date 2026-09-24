@@ -9,11 +9,15 @@ import ProjectsContent from "./components/sections/ProjectsContent";
 import SkillsContent from "./components/sections/SkillsContent";
 import ThemeToggle from "./components/ui/ThemeToggle";
 import useIsMobile from "./hooks/useIsMobile";
+import useFitScale from "./hooks/useFitScale";
 import { sections, type SectionId } from "./data/sections";
 import { AnimatePresence } from "framer-motion";
 
 export default function App() {
   const isMobile = useIsMobile();
+  // Desktop: scale everything to fit the screen. Phone: keep the normal size.
+  const fitScale = useFitScale();
+  const scale = isMobile ? 1 : fitScale;
   const [mobileSection, setMobileSection] = useState<SectionId | null>(null);
   const [windows, setWindows] = useState<{ id: SectionId; zIndex: number }[]>(
     [],
@@ -25,6 +29,7 @@ export default function App() {
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDark);
   }, [isDark]);
+
 
   const handleOpenSection = (sectionId: SectionId) => {
     if (isMobile) {
@@ -82,43 +87,55 @@ export default function App() {
   };
 
   return (
-    <main
-      className="relative h-screen overflow-hidden bg-page transition-colors"
-    >
-      {/* Dark/light toggle, pinned to the top-left corner of the screen */}
-      <div className="fixed top-4 left-4 z-[1000]">
-        <ThemeToggle isDark={isDark} onToggle={() => setIsDark(!isDark)} />
-      </div>
+    <main className="relative h-screen overflow-hidden bg-page transition-colors">
+      {/* The "stage": everything on the desktop lives inside this box.
+          It is made 1/scale times the screen size, then shrunk/grown by
+          `scale`, so it always exactly covers the screen. Everything inside
+          grows or shrinks together, like zooming a picture. */}
+      <div
+        className="absolute left-0 top-0 origin-top-left"
+        style={{
+          width: `calc(100vw / ${scale})`,
+          height: `calc(100vh / ${scale})`,
+          transform: `scale(${scale})`,
+        }}
+      >
+        {/* Dark/light toggle, pinned to the top-left corner of the screen */}
+        <div className="fixed top-4 left-4 z-[1000]">
+          <ThemeToggle isDark={isDark} onToggle={() => setIsDark(!isDark)} />
+        </div>
 
-      <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <HomeDesktop onOpenSection={handleOpenSection} />
-      </div>
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+          <HomeDesktop onOpenSection={handleOpenSection} />
+        </div>
 
-      <AnimatePresence>
-        {!isMobile &&
-          windows.map((win) => (
-            <WindowShell
-              key={win.id}
-              title={sections.find((s) => s.id === win.id)?.title || ""}
-              onClose={() => handleCloseWindow(win.id)}
-              zIndex={win.zIndex}
-              onFocus={() => bringToFront(win.id)}
+        <AnimatePresence>
+          {!isMobile &&
+            windows.map((win) => (
+              <WindowShell
+                key={win.id}
+                title={sections.find((s) => s.id === win.id)?.title || ""}
+                onClose={() => handleCloseWindow(win.id)}
+                zIndex={win.zIndex}
+                onFocus={() => bringToFront(win.id)}
+                scale={scale}
+              >
+                {renderContent(win.id)}
+              </WindowShell>
+            ))}
+        </AnimatePresence>
+
+        <AnimatePresence>
+          {isMobile && mobileSection && (
+            <MobilePanel
+              title={sections.find((s) => s.id === mobileSection)?.title || ""}
+              onClose={handleCloseMobilePanel}
             >
-              {renderContent(win.id)}
-            </WindowShell>
-          ))}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {isMobile && mobileSection && (
-          <MobilePanel
-            title={sections.find((s) => s.id === mobileSection)?.title || ""}
-            onClose={handleCloseMobilePanel}
-          >
-            {renderContent(mobileSection)}
-          </MobilePanel>
-        )}
-      </AnimatePresence>
+              {renderContent(mobileSection)}
+            </MobilePanel>
+          )}
+        </AnimatePresence>
+      </div>
     </main>
   );
 }
