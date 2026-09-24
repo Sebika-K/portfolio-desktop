@@ -4,8 +4,8 @@ type ThemeToggleProps = {
 };
 
 // A sun (light mode) or moon (dark mode) button.
-// The icons use `currentColor`, so they take whatever text color
-// the button has: dark gray in light mode, white in dark mode.
+// The icons use `currentColor`, so they take the button's text color.
+// text-icon is a theme color (see index.css): dark gray in light, white in dark.
 export default function ThemeToggle({ isDark, onToggle }: ThemeToggleProps) {
   return (
     <button
@@ -13,9 +13,7 @@ export default function ThemeToggle({ isDark, onToggle }: ThemeToggleProps) {
       onClick={onToggle}
       aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
       title={isDark ? "Light mode" : "Dark mode"}
-      className={`rounded-full p-1 transition hover:scale-110 ${
-        isDark ? "text-white" : "text-[#444444]"
-      }`}
+      className="rounded-full p-1 text-icon transition hover:scale-110"
     >
       {isDark ? <MoonIcon /> : <SunIcon />}
     </button>

@@ -1,6 +1,21 @@
 @import url("https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap");
 @import "tailwindcss";
 
+/* ---------- Theme colors ----------
+   Each color has a name (e.g. "page") instead of a hex code.
+   Tailwind turns every --color-NAME into classes like bg-NAME, text-NAME.
+   Light values live here; the .dark block below swaps them when
+   <html> has the "dark" class (App.tsx adds/removes it). */
+@theme {
+  --color-page: #add8e6; /* screen background */
+  --color-icon: #444444; /* toggle + social icons */
+}
+
+.dark {
+  --color-page: #1a1a1a;
+  --color-icon: #ffffff;
+}
+
 html,
 body,
 #root {

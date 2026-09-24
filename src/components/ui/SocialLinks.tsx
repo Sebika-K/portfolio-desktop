@@ -1,16 +1,12 @@
-type SocialLinksProps = {
-  isDark: boolean;
-};
-
 // TODO: replace with real LinkedIn profile URL
 const LINKEDIN_URL = "https://www.linkedin.com/";
 const GITHUB_URL = "https://github.com/Sebika-K";
 
 // LinkedIn + GitHub icon links. Styled like ThemeToggle: the icons use
-export default function SocialLinks({ isDark }: SocialLinksProps) {
-  const linkClass = `rounded-full p-1 transition hover:scale-110 ${
-    isDark ? "text-white" : "text-[#444444]"
-  }`;
+// `currentColor`, and text-icon is a theme color (see index.css), so they're
+// dark gray in light mode and white in dark mode automatically.
+export default function SocialLinks() {
+  const linkClass = "rounded-full p-1 text-icon transition hover:scale-110";
 
   return (
     <div className="flex gap-6">

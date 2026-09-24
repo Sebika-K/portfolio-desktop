@@ -3,13 +3,9 @@ import SocialLinks from "../ui/SocialLinks";
 
 type HomeDesktopProps = {
   onOpenSection: (sectionId: SectionId) => void;
-  isDark: boolean;
 };
 
-export default function HomeDesktop({
-  onOpenSection,
-  isDark,
-}: HomeDesktopProps) {
+export default function HomeDesktop({ onOpenSection }: HomeDesktopProps) {
   return (
     <div className="flex flex-col items-center gap-5">
       <div className="w-[837px] h-[501px] rounded-[12px] border border-[#673C33]/25 bg-[#F1F0DD] shadow-xl max-md:w-[92vw] max-md:h-auto">
@@ -54,7 +50,7 @@ export default function HomeDesktop({
         </div>
       </div>
       {/* Socials */}
-      <SocialLinks isDark={isDark} />
+      <SocialLinks />
     </div>
   );
 }

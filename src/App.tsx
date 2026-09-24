@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import HomeDesktop from "./components/desktop/HomeDesktop";
 import WindowShell from "./components/desktop/WindowShell";
 import MobilePanel from "./components/mobile/MobilePanel";
@@ -19,6 +19,12 @@ export default function App() {
     [],
   );
   const [isDark, setIsDark] = useState(false);
+
+  // Put a "dark" class on <html> whenever dark mode is on.
+  // index.css uses that class to swap every theme color at once.
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", isDark);
+  }, [isDark]);
 
   const handleOpenSection = (sectionId: SectionId) => {
     if (isMobile) {
@@ -77,7 +83,7 @@ export default function App() {
 
   return (
     <main
-      className={`relative h-screen overflow-hidden ${isDark ? "bg-[#1a1a1a]" : "bg-[#ADD8E6]"}`}
+      className="relative h-screen overflow-hidden bg-page transition-colors"
     >
       {/* Dark/light toggle, pinned to the top-left corner of the screen */}
       <div className="fixed top-4 left-4 z-[1000]">
@@ -85,7 +91,7 @@ export default function App() {
       </div>
 
       <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-        <HomeDesktop onOpenSection={handleOpenSection} isDark={isDark} />
+        <HomeDesktop onOpenSection={handleOpenSection} />
       </div>
 
       <AnimatePresence>
