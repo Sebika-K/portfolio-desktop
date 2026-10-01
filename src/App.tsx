@@ -5,6 +5,7 @@ import MobilePanel from "./components/mobile/MobilePanel";
 import AboutContent from "./components/sections/AboutContent";
 import ContactContent from "./components/sections/ContactContent";
 import Terminal from "./components/terminal/Terminal";
+import AboutSiteContent from "./components/sections/AboutSiteContent";
 import ExperienceContent from "./components/sections/ExperienceContent";
 import ProjectsContent from "./components/sections/ProjectsContent";
 import SkillsContent from "./components/sections/SkillsContent";
@@ -133,6 +134,8 @@ export default function App() {
         return <SkillsContent />;
       case "contact":
         return <ContactContent />;
+      case "about-site":
+        return <AboutSiteContent />;
       case "terminal":
         return <Terminal onOpenSection={handleOpenSection} />;
       default:

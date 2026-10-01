@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Placeholder text-file icon (swap for a hand-drawn one later) -->
+  <path d="M16 6h22l12 12v38a2 2 0 0 1-2 2H16a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2z" fill="#fffdf5" stroke="#1a1a1a" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M38 6v12h12" fill="#f4b6c2" stroke="#1a1a1a" stroke-width="2.5" stroke-linejoin="round"/>
+  <g stroke="#8fb8de" stroke-width="3" stroke-linecap="round">
+    <line x1="21" y1="28" x2="43" y2="28"/>
+    <line x1="21" y1="36" x2="43" y2="36"/>
+    <line x1="21" y1="44" x2="35" y2="44"/>
+  </g>
+</svg>
