@@ -1,5 +1,5 @@
 import { useEffect, useState, type CSSProperties } from "react";
-import HomeDesktop from "./components/desktop/HomeDesktop";
+import DesktopIcons from "./components/desktop/DesktopIcons";
 import WindowShell from "./components/desktop/WindowShell";
 import MobilePanel from "./components/mobile/MobilePanel";
 import AboutContent from "./components/sections/AboutContent";
@@ -107,9 +107,8 @@ export default function App() {
           <ThemeToggle isDark={isDark} onToggle={() => setIsDark(!isDark)} />
         </div>
 
-        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <HomeDesktop onOpenSection={handleOpenSection} />
-        </div>
+        {/* Icons sitting on the wallpaper (the old Home window is gone) */}
+        <DesktopIcons onOpenSection={handleOpenSection} isMobile={isMobile} />
 
         <AnimatePresence>
           {!isMobile &&
