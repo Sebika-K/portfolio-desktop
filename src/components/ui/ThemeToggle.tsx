@@ -1,12 +1,17 @@
 type ThemeToggleProps = {
   isDark: boolean;
   onToggle: () => void;
+  size?: number; // icon size in pixels (default 36)
 };
 
 // A sun (light mode) or moon (dark mode) button.
 // The icons use `currentColor`, so they take the button's text color.
 // text-icon is a theme color (see index.css): dark gray in light, white in dark.
-export default function ThemeToggle({ isDark, onToggle }: ThemeToggleProps) {
+export default function ThemeToggle({
+  isDark,
+  onToggle,
+  size = 36,
+}: ThemeToggleProps) {
   return (
     <button
       type="button"
@@ -15,16 +20,16 @@ export default function ThemeToggle({ isDark, onToggle }: ThemeToggleProps) {
       title={isDark ? "Light mode" : "Dark mode"}
       className="rounded-full p-1 text-icon transition hover:scale-110"
     >
-      {isDark ? <MoonIcon /> : <SunIcon />}
+      {isDark ? <MoonIcon size={size} /> : <SunIcon size={size} />}
     </button>
   );
 }
 
-function SunIcon() {
+function SunIcon({ size }: { size: number }) {
   return (
     <svg
-      width="36"
-      height="36"
+      width={size}
+      height={size}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
@@ -45,11 +50,11 @@ function SunIcon() {
   );
 }
 
-function MoonIcon() {
+function MoonIcon({ size }: { size: number }) {
   return (
     <svg
-      width="36"
-      height="36"
+      width={size}
+      height={size}
       viewBox="0 0 24 24"
       fill="currentColor"
       aria-hidden="true"

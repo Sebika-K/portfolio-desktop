@@ -5,11 +5,19 @@ const GITHUB_URL = "https://github.com/Sebika-K";
 // LinkedIn + GitHub icon links. Styled like ThemeToggle: the icons use
 // `currentColor`, and text-icon is a theme color (see index.css), so they're
 // dark gray in light mode and white in dark mode automatically.
-export default function SocialLinks() {
+type SocialLinksProps = {
+  size?: number; // icon size in pixels (default 36)
+  gap?: string; // Tailwind gap class between the icons
+};
+
+export default function SocialLinks({
+  size = 36,
+  gap = "gap-6",
+}: SocialLinksProps) {
   const linkClass = "rounded-full p-1 text-icon transition hover:scale-110";
 
   return (
-    <div className="flex gap-6">
+    <div className={`flex items-center ${gap}`}>
       <a
         href={LINKEDIN_URL}
         target="_blank"
@@ -18,7 +26,7 @@ export default function SocialLinks() {
         title="LinkedIn"
         className={linkClass}
       >
-        <LinkedInIcon />
+        <LinkedInIcon size={size} />
       </a>
       <a
         href={GITHUB_URL}
@@ -28,17 +36,17 @@ export default function SocialLinks() {
         title="GitHub"
         className={linkClass}
       >
-        <GitHubIcon />
+        <GitHubIcon size={size} />
       </a>
     </div>
   );
 }
 
-function LinkedInIcon() {
+function LinkedInIcon({ size }: { size: number }) {
   return (
     <svg
-      width="36"
-      height="36"
+      width={size}
+      height={size}
       viewBox="0 0 24 24"
       fill="currentColor"
       aria-hidden="true"
@@ -48,11 +56,11 @@ function LinkedInIcon() {
   );
 }
 
-function GitHubIcon() {
+function GitHubIcon({ size }: { size: number }) {
   return (
     <svg
-      width="36"
-      height="36"
+      width={size}
+      height={size}
       viewBox="0 0 24 24"
       fill="currentColor"
       aria-hidden="true"

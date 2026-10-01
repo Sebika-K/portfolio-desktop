@@ -9,6 +9,7 @@
 @theme {
   --color-page: #add8e6; /* screen background */
   --color-icon: #444444; /* toggle + social icons */
+  --color-menubar: rgb(255 255 255 / 0.45); /* see-through top bar */
 
   /* Windows (Home, section windows, mobile panel) */
   --color-window: #f1f0dd; /* window body */
@@ -40,6 +41,7 @@
 .dark {
   --color-page: #1a1a1a;
   --color-icon: #ffffff;
+  --color-menubar: rgb(0 0 0 / 0.35);
 
   --color-window: #16213a; /* navy */
   --color-window-border: #ffffff;

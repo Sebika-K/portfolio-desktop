@@ -7,7 +7,7 @@ import ContactContent from "./components/sections/ContactContent";
 import ExperienceContent from "./components/sections/ExperienceContent";
 import ProjectsContent from "./components/sections/ProjectsContent";
 import SkillsContent from "./components/sections/SkillsContent";
-import ThemeToggle from "./components/ui/ThemeToggle";
+import TopBar from "./components/desktop/TopBar";
 import useIsMobile from "./hooks/useIsMobile";
 import useFitScale from "./hooks/useFitScale";
 import { sections, type SectionId } from "./data/sections";
@@ -102,10 +102,8 @@ export default function App() {
           "--scale": scale,
         } as CSSProperties}
       >
-        {/* Dark/light toggle, pinned to the top-left corner of the screen */}
-        <div className="fixed top-4 left-4 z-[1000]">
-          <ThemeToggle isDark={isDark} onToggle={() => setIsDark(!isDark)} />
-        </div>
+        {/* Menu bar across the top: name, links, theme toggle, clock */}
+        <TopBar isDark={isDark} onToggleDark={() => setIsDark(!isDark)} />
 
         {/* Icons sitting on the wallpaper (the old Home window is gone) */}
         <DesktopIcons onOpenSection={handleOpenSection} isMobile={isMobile} />

@@ -43,7 +43,7 @@ export default function DesktopIcons({
 
       <nav
         aria-label="Desktop"
-        className="absolute left-6 top-20 flex flex-col gap-4"
+        className="absolute left-6 top-14 flex flex-col gap-4"
       >
         {sections.map((item) => {
           const isSelected = selectedId === item.id;
