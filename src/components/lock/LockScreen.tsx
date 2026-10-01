@@ -6,6 +6,11 @@ type LockScreenProps = {
   onEnter: () => void;
 };
 
+// Frosted white glass behind the main pieces of text. backdrop-blur softens
+// whatever is behind it (sky or a passing cloud) into a smooth pale patch,
+// and the deep navy text reads clearly on top of that, cloud or no cloud.
+const GLASS = "border border-white/60 bg-white/45 backdrop-blur-md";
+
 // The first thing visitors see, like a computer's lock screen:
 // a welcome line, a big live clock on a frosted card, a short intro,
 // and "click or press space to enter".
@@ -45,14 +50,16 @@ export default function LockScreen({ onEnter }: LockScreenProps) {
       exit={{ opacity: 0, scale: 1.03 }}
       transition={{ duration: 0.4 }}
       onClick={onEnter}
-      className="fixed inset-0 z-[2000] flex cursor-pointer select-none flex-col items-center justify-center gap-8 text-white [text-shadow:0_1px_3px_rgb(0_0_0/0.25)]"
+      className="fixed inset-0 z-[2000] flex cursor-pointer select-none flex-col items-center justify-center gap-8 text-[#2c4a63]"
     >
       <p className="text-sm font-semibold uppercase tracking-[0.3em]">
         Welcome to SebikaOS
       </p>
 
       {/* Frosted-glass clock card */}
-      <div className="flex flex-col items-center rounded-3xl border border-white/40 bg-white/20 px-12 py-8 shadow-lg backdrop-blur-md">
+      <div
+        className={`${GLASS} flex flex-col items-center rounded-3xl px-12 py-8 shadow-lg`}
+      >
         <span className="text-lg font-semibold">{date}</span>
         <span className="text-7xl font-bold leading-tight tabular-nums">
           {hour}
@@ -66,7 +73,7 @@ export default function LockScreen({ onEnter }: LockScreenProps) {
         )}
       </div>
 
-      <div className="text-center">
+      <div className={`${GLASS} rounded-2xl px-6 py-3 text-center`}>
         <h1 className="text-2xl font-bold">Hi! I’m Sebika</h1>
         <p className="mt-1 font-indie text-lg">
           Software engineer, designer, and creative builder
@@ -82,7 +89,7 @@ export default function LockScreen({ onEnter }: LockScreenProps) {
           e.stopPropagation(); // the screen behind also listens for clicks
           onEnter();
         }}
-        className="animate-pulse rounded-full px-4 py-1 text-sm outline-none focus-visible:ring-2 focus-visible:ring-white"
+        className={`${GLASS} animate-pulse rounded-full px-5 py-1.5 text-sm outline-none focus-visible:ring-2 focus-visible:ring-[#2c4a63]`}
       >
         click or press space to enter
       </button>
