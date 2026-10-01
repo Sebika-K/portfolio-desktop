@@ -1,34 +1,37 @@
 import type { CSSProperties } from "react";
 
-// Sebika's hand-drawn clouds, placed around the sky, each gently swaying
-// side to side (the `cloud-drift` animation lives in index.css).
+// Sebika's hand-drawn clouds.
 //
-// Sizes and positions use vw/vh (percent of the screen), so the clouds sit
-// in the same spots on any screen size. The images are the web-optimized
-// copies in public/clouds/web/ (the original PNGs stay in public/clouds/).
+//  • All five start in the balanced layout we designed and travel very
+//    slowly from left to right. The big bank (cloud 1) is the slowest and
+//    is drawn in front, so the others pass behind it. (Its image has its
+//    cut side edges faded out, so it can travel too.)
+//  • Each cloud has a MIRRORED partner following
+//    half a loop behind it: the moment a cloud starts sliding out on the
+//    right, its mirrored partner starts sliding in on the left.
+//
+// The animation itself lives in index.css (cloud-travel).
+// The images are the web-optimized copies in public/clouds/web/.
 
-type Cloud = {
+type TravelingCloud = {
   src: string;
-  style: CSSProperties; // where it sits and how wide it is
-  drift: number; // how far it sways to each side, in vw
-  duration: number; // seconds for one full sway there and back
-  delay: number; // negative = start partway through, so clouds aren't in sync
+  position: CSSProperties; // its height on screen (top or bottom)
+  width: string;
+  loop: number; // seconds for one full loop (bigger = slower)
+  delay: number; // negative = already partway along when the page loads
+  restX: string; // its spot in the starting layout (also used for reduced motion)
 };
 
-const CLOUDS: Cloud[] = [
-  // Layout idea: big + small clouds balanced diagonally.
-  //   upper left: big cloud 4      upper right: small clouds 3 and 2
-  //   lower left: medium cloud 5   lower right: the big bank (cloud 1)
-
-  // Big bank, bottom right. right: -2vw tucks its straight cut edge just off-screen.
-  { src: "/clouds/web/cloud-1.webp", style: { bottom: 0, right: "-2vw", width: "64vw" }, drift: 1.5, duration: 70, delay: -20 },
-  // Big cloud, upper left, peeking in from the left edge.
-  { src: "/clouds/web/cloud-4.webp", style: { top: "12vh", left: "-2vw", width: "40vw" }, drift: 2.5, duration: 55, delay: -8 },
-  // Medium cloud, lower left.
-  { src: "/clouds/web/cloud-5.webp", style: { bottom: "4vh", left: "-3vw", width: "24vw" }, drift: 2, duration: 62, delay: -35 },
-  // Small clouds on the right, staggered.
-  { src: "/clouds/web/cloud-3.webp", style: { top: "8vh", right: "10vw", width: "13vw" }, drift: 1.2, duration: 80, delay: -50 },
-  { src: "/clouds/web/cloud-2.webp", style: { top: "38vh", right: "4vw", width: "13vw" }, drift: 1.2, duration: 74, delay: -12 },
+// The delays put each cloud at its spot in the original layout when the page
+// loads (big cloud 4 upper left, cloud 5 lower left, small 3 and 2 on the right),
+// with every mirrored partner still waiting just off the left edge.
+const TRAVELING: TravelingCloud[] = [
+  { src: "/clouds/web/cloud-4.webp", position: { top: "12vh" }, width: "40vw", loop: 444, delay: -84, restX: "-2vw" },
+  { src: "/clouds/web/cloud-5.webp", position: { bottom: "4vh" }, width: "24vw", loop: 441, delay: -47, restX: "-3vw" },
+  { src: "/clouds/web/cloud-3.webp", position: { top: "8vh" }, width: "13vw", loop: 726, delay: -326, restX: "77vw" },
+  { src: "/clouds/web/cloud-2.webp", position: { top: "38vh" }, width: "13vw", loop: 656, delay: -314, restX: "83vw" },
+  // The big bank: last in the list so it's drawn in front, and the slowest.
+  { src: "/clouds/web/cloud-1.webp", position: { bottom: 0 }, width: "64vw", loop: 1000, delay: -510, restX: "38vw" },
 ];
 
 export default function Clouds() {
@@ -39,22 +42,30 @@ export default function Clouds() {
       className="pointer-events-none absolute inset-0 overflow-hidden opacity-[var(--cloud-opacity)] transition-opacity"
       aria-hidden="true"
     >
-      {CLOUDS.map((cloud) => (
-        <img
-          key={cloud.src}
-          src={cloud.src}
-          alt=""
-          draggable={false}
-          className="cloud-drift absolute h-auto select-none"
-          style={{
-            ...cloud.style,
-            // Hand this cloud's own numbers to the CSS animation.
-            "--drift": `${cloud.drift}vw`,
-            animationDuration: `${cloud.duration}s`,
-            animationDelay: `${cloud.delay}s`,
-          } as CSSProperties}
-        />
-      ))}
+      {TRAVELING.map((cloud) =>
+        // Two copies of each cloud: the normal one, and its mirrored partner
+        // starting half a loop later (so it's exactly one screen-width behind).
+        [false, true].map((mirrored) => (
+          <img
+            key={`${cloud.src}-${mirrored}`}
+            src={cloud.src}
+            alt=""
+            draggable={false}
+            className={`cloud-travel absolute left-0 h-auto select-none ${
+              mirrored ? "cloud-partner" : ""
+            }`}
+            style={{
+              ...cloud.position,
+              width: cloud.width,
+              // Hand this cloud's own numbers to the CSS animation.
+              "--flip": mirrored ? -1 : 1,
+              "--rest-x": cloud.restX,
+              animationDuration: `${cloud.loop}s`,
+              animationDelay: `${mirrored ? cloud.delay - cloud.loop / 2 : cloud.delay}s`,
+            } as CSSProperties}
+          />
+        )),
+      )}
     </div>
   );
 }

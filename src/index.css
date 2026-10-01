@@ -116,29 +116,37 @@ body {
   }
 }
 
-/* ---------- Cloud drift ----------
-   Each cloud sways from --drift to the left, to --drift to the right, and
-   back, forever. Clouds.tsx gives every cloud its own distance, speed and
-   starting point, so they never move together. */
-@keyframes cloud-drift {
-  0%,
-  100% {
-    transform: translateX(calc(var(--drift) * -1));
+/* ---------- Cloud travel ----------
+   Each cloud travels from just past the left edge (moved left by its own
+   width: -100%) to two screen-widths further right (200vw - its width).
+   Its mirrored partner does the same trip half a loop later, which puts it
+   exactly one screen-width behind. So the moment a cloud begins sliding out
+   on the right, its partner begins sliding in on the left, and while a cloud
+   is far off to the right, waiting to loop, its partner is the one on screen.
+   --flip is 1 (normal) or -1 (mirrored); linear = steady, like real wind. */
+@keyframes cloud-travel {
+  from {
+    transform: translateX(-100%) scaleX(var(--flip));
   }
-  50% {
-    transform: translateX(var(--drift));
+  to {
+    transform: translateX(calc(200vw - 100%)) scaleX(var(--flip));
   }
 }
 
-.cloud-drift {
-  animation-name: cloud-drift;
-  animation-timing-function: ease-in-out; /* slow down at each end, like floating */
+.cloud-travel {
+  animation-name: cloud-travel;
+  animation-timing-function: linear;
   animation-iteration-count: infinite;
 }
 
-/* Visitors who asked their device for less motion get still clouds. */
+/* Visitors who asked their device for less motion get still clouds:
+   travelling clouds rest at their --rest-x spot instead of moving. */
 @media (prefers-reduced-motion: reduce) {
-  .cloud-drift {
+  .cloud-travel {
     animation: none;
+    transform: translateX(var(--rest-x));
+  }
+  .cloud-partner {
+    display: none; /* only the original layout, standing still */
   }
 }
