@@ -4,7 +4,6 @@ import {
   useRef,
   useState,
   type PointerEvent,
-  type ReactNode,
   type Ref,
 } from "react";
 
@@ -15,11 +14,9 @@ const COLORS = ["#2b2b2b", "#f4a7b9", "#f7c59f", "#fbe38e", "#c9e7b5", "#b8e3f3"
 const SIZES = [4, 10, 22];
 
 // Things a parent component can ask the canvas to do, through a ref.
-// (Paint uses toDataURL to save; the Guestbook uses toBlob to upload.)
 export type DrawingCanvasHandle = {
   hasDrawing: () => boolean; // has anything been drawn since the last clear?
   clear: () => void;
-  toDataURL: () => string;
   toBlob: () => Promise<Blob | null>;
 };
 
@@ -27,17 +24,14 @@ type DrawingCanvasProps = {
   width: number; // the drawing's real size in pixels
   height: number;
   ref?: Ref<DrawingCanvasHandle>; // in React 19, `ref` is a normal prop
-  extraTools?: ReactNode; // extra buttons for the toolbar (e.g. Save PNG)
 };
 
-// A reusable drawing pad: color picker, brush sizes, eraser, clear, and the
-// canvas itself. Paint and the Guestbook both use it, so the drawing code
-// lives in one place.
+// The Guestbook's drawing pad: color picker, brush sizes, eraser, clear,
+// and the canvas itself.
 export default function DrawingCanvas({
   width,
   height,
   ref,
-  extraTools,
 }: DrawingCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const lastPoint = useRef<{ x: number; y: number } | null>(null);
@@ -65,7 +59,6 @@ export default function DrawingCanvas({
   useImperativeHandle(ref, () => ({
     hasDrawing: () => drewSomething.current,
     clear: clearCanvas,
-    toDataURL: () => canvasRef.current?.toDataURL("image/png") ?? "",
     // canvas.toBlob uses a callback; wrapping it in a Promise lets us `await` it.
     toBlob: () =>
       new Promise((resolve) => {
@@ -172,7 +165,6 @@ export default function DrawingCanvas({
         <button type="button" onClick={clearCanvas} className={toolButton}>
           Clear
         </button>
-        {extraTools}
       </div>
 
       <canvas

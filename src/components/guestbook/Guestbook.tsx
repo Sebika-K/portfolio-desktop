@@ -1,5 +1,5 @@
 import { useRef, useState, type FormEvent } from "react";
-import DrawingCanvas, { type DrawingCanvasHandle } from "../paint/DrawingCanvas";
+import DrawingCanvas, { type DrawingCanvasHandle } from "./DrawingCanvas";
 import { sendEntry } from "./sendEntry";
 import DoodleWall from "./DoodleWall";
 
