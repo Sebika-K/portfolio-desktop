@@ -1,6 +1,4 @@
-// TODO: replace with real LinkedIn profile URL
-const LINKEDIN_URL = "https://www.linkedin.com/";
-const GITHUB_URL = "https://github.com/Sebika-K";
+import { GITHUB_URL, LINKEDIN_URL } from "../../data/links";
 
 // LinkedIn + GitHub icon links. Styled like ThemeToggle: the icons use
 // `currentColor`, and text-icon is a theme color (see index.css), so they're

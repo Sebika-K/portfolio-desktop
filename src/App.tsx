@@ -4,6 +4,7 @@ import WindowShell from "./components/desktop/WindowShell";
 import MobilePanel from "./components/mobile/MobilePanel";
 import AboutContent from "./components/sections/AboutContent";
 import ContactContent from "./components/sections/ContactContent";
+import Terminal from "./components/terminal/Terminal";
 import ExperienceContent from "./components/sections/ExperienceContent";
 import ProjectsContent from "./components/sections/ProjectsContent";
 import SkillsContent from "./components/sections/SkillsContent";
@@ -132,6 +133,8 @@ export default function App() {
         return <SkillsContent />;
       case "contact":
         return <ContactContent />;
+      case "terminal":
+        return <Terminal onOpenSection={handleOpenSection} />;
       default:
         return null;
     }
@@ -171,6 +174,7 @@ export default function App() {
                 zIndex={win.zIndex}
                 onFocus={() => bringToFront(win.id)}
                 scale={scale}
+                bodyClassName={win.id === "terminal" ? "" : undefined}
               >
                 {renderContent(win.id)}
               </WindowShell>
