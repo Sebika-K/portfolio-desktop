@@ -115,3 +115,30 @@ body {
     scrollbar-color: var(--color-scrollbar) transparent;
   }
 }
+
+/* ---------- Cloud drift ----------
+   Each cloud sways from --drift to the left, to --drift to the right, and
+   back, forever. Clouds.tsx gives every cloud its own distance, speed and
+   starting point, so they never move together. */
+@keyframes cloud-drift {
+  0%,
+  100% {
+    transform: translateX(calc(var(--drift) * -1));
+  }
+  50% {
+    transform: translateX(var(--drift));
+  }
+}
+
+.cloud-drift {
+  animation-name: cloud-drift;
+  animation-timing-function: ease-in-out; /* slow down at each end, like floating */
+  animation-iteration-count: infinite;
+}
+
+/* Visitors who asked their device for less motion get still clouds. */
+@media (prefers-reduced-motion: reduce) {
+  .cloud-drift {
+    animation: none;
+  }
+}
