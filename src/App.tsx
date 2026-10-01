@@ -8,6 +8,7 @@ import ExperienceContent from "./components/sections/ExperienceContent";
 import ProjectsContent from "./components/sections/ProjectsContent";
 import SkillsContent from "./components/sections/SkillsContent";
 import TopBar from "./components/desktop/TopBar";
+import Taskbar from "./components/desktop/Taskbar";
 import useIsMobile from "./hooks/useIsMobile";
 import useFitScale from "./hooks/useFitScale";
 import { sections, type SectionId } from "./data/sections";
@@ -19,9 +20,18 @@ export default function App() {
   const fitScale = useFitScale();
   const scale = isMobile ? 1 : fitScale;
   const [mobileSection, setMobileSection] = useState<SectionId | null>(null);
-  const [windows, setWindows] = useState<{ id: SectionId; zIndex: number }[]>(
-    [],
-  );
+  // Every open window: which section, how high it's stacked (zIndex),
+  // and whether it's tucked away in the taskbar (minimized).
+  const [windows, setWindows] = useState<
+    { id: SectionId; zIndex: number; minimized: boolean }[]
+  >([]);
+
+  // The window in front = the highest zIndex among windows that are showing.
+  const visibleWindows = windows.filter((w) => !w.minimized);
+  const activeId =
+    visibleWindows.length > 0
+      ? visibleWindows.reduce((top, w) => (w.zIndex > top.zIndex ? w : top)).id
+      : null;
   const [isDark, setIsDark] = useState(false);
 
   // Put a "dark" class on <html> whenever dark mode is on.
@@ -43,12 +53,12 @@ export default function App() {
       if (alreadyOpen) {
         const maxZ = Math.max(...prev.map((w) => w.zIndex), 0);
         return prev.map((w) =>
-          w.id === sectionId ? { ...w, zIndex: maxZ + 1 } : w,
+          w.id === sectionId ? { ...w, zIndex: maxZ + 1, minimized: false } : w,
         );
       }
 
       const maxZ = Math.max(...prev.map((w) => w.zIndex), 0);
-      return [...prev, { id: sectionId, zIndex: maxZ + 1 }];
+      return [...prev, { id: sectionId, zIndex: maxZ + 1, minimized: false }];
     });
   };
 
@@ -60,13 +70,33 @@ export default function App() {
     setMobileSection(null);
   };
 
+  // Puts a window on top of the others (and un-minimizes it if needed).
   const bringToFront = (sectionId: SectionId) => {
     setWindows((prev) => {
       const maxZ = Math.max(...prev.map((w) => w.zIndex), 0);
       return prev.map((w) =>
-        w.id === sectionId ? { ...w, zIndex: maxZ + 1 } : w,
+        w.id === sectionId ? { ...w, zIndex: maxZ + 1, minimized: false } : w,
       );
     });
+  };
+
+  const minimizeWindow = (sectionId: SectionId) => {
+    setWindows((prev) =>
+      prev.map((w) => (w.id === sectionId ? { ...w, minimized: true } : w)),
+    );
+  };
+
+  // Clicking a taskbar tab works like on a real computer:
+  //   minimized window      → restore it
+  //   the window in front   → minimize it
+  //   a window behind others → bring it to the front
+  const handleTaskbarClick = (sectionId: SectionId) => {
+    const win = windows.find((w) => w.id === sectionId);
+    if (!win) return;
+
+    if (win.minimized) bringToFront(sectionId);
+    else if (sectionId === activeId) minimizeWindow(sectionId);
+    else bringToFront(sectionId);
   };
 
   const renderContent = (sectionId: SectionId) => {
@@ -115,6 +145,8 @@ export default function App() {
                 key={win.id}
                 title={sections.find((s) => s.id === win.id)?.title || ""}
                 onClose={() => handleCloseWindow(win.id)}
+                onMinimize={() => minimizeWindow(win.id)}
+                minimized={win.minimized}
                 zIndex={win.zIndex}
                 onFocus={() => bringToFront(win.id)}
                 scale={scale}
@@ -123,6 +155,15 @@ export default function App() {
               </WindowShell>
             ))}
         </AnimatePresence>
+
+        {/* Taskbar along the bottom (desktop only; phones use the slide-up panel) */}
+        {!isMobile && (
+          <Taskbar
+            windows={windows}
+            activeId={activeId}
+            onTabClick={handleTaskbarClick}
+          />
+        )}
 
         <AnimatePresence>
           {isMobile && mobileSection && (

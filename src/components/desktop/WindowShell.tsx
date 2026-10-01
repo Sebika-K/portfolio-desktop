@@ -6,6 +6,10 @@ import { Rnd } from "react-rnd"
 type WindowShellProps = {
   title: string
   onClose: () => void
+  onMinimize: () => void
+  // Minimized windows stay alive but hidden, so they remember their
+  // position and size (and scroll) when restored from the taskbar.
+  minimized: boolean
   children: ReactNode
   zIndex: number
   onFocus: () => void
@@ -17,6 +21,8 @@ type WindowShellProps = {
 export default function WindowShell({
   title,
   onClose,
+  onMinimize,
+  minimized,
   children,
   zIndex,
   onFocus,
@@ -46,7 +52,7 @@ export default function WindowShell({
       minHeight={300}
       bounds="parent"
       scale={scale}
-      style={{ zIndex }}
+      style={{ zIndex, display: minimized ? "none" : undefined }}
       onMouseDown={onFocus}
       dragHandleClassName="window-drag-handle"
     >
@@ -60,13 +66,26 @@ export default function WindowShell({
         <div className="window-drag-handle flex cursor-move items-center justify-between rounded-t-2xl  border-b border-titlebar-line bg-titlebar px-4 py-2 text-sm font-semibold text-white">
           <span>:) {title}</span>
 
-          <button
-            type="button"
-            onClick={onClose}
-            className="cursor-pointer rounded border border-white/70 px-2 py-0.5 text-xs hover:bg-white/20"
-          >
-            X
-          </button>
+          <div className="flex gap-1.5">
+            <button
+              type="button"
+              onClick={onMinimize}
+              aria-label={`Minimize ${title}`}
+              title="Minimize"
+              className="cursor-pointer rounded border border-white/70 px-2 py-0.5 text-xs hover:bg-white/20"
+            >
+              –
+            </button>
+            <button
+              type="button"
+              onClick={onClose}
+              aria-label={`Close ${title}`}
+              title="Close"
+              className="cursor-pointer rounded border border-white/70 px-2 py-0.5 text-xs hover:bg-white/20"
+            >
+              X
+            </button>
+          </div>
         </div>
 
         <div className="flex-1 overflow-y-auto px-6 py-6">
