@@ -41,9 +41,14 @@ export default function DesktopIcons({
         aria-hidden="true"
       />
 
+      {/* The column stops above the taskbar (bottom-16) and, when it runs
+          out of room, wraps into a second column (flex-col + flex-wrap),
+          like icons on a real desktop. Phones have no taskbar → bottom-4. */}
       <nav
         aria-label="Desktop"
-        className="absolute left-6 top-14 flex flex-col gap-4"
+        className={`absolute left-6 top-14 flex flex-col flex-wrap content-start gap-x-2 gap-y-3 ${
+          isMobile ? "bottom-4" : "bottom-16"
+        }`}
       >
         {sections.map((item) => {
           const isSelected = selectedId === item.id;
@@ -57,7 +62,7 @@ export default function DesktopIcons({
               }
               onDoubleClick={() => onOpenSection(item.id)}
               onKeyDown={(e) => handleKeyDown(e, item.id)}
-              className="group flex w-24 flex-col items-center gap-1 rounded-lg p-1 outline-none select-none"
+              className="group flex w-28 flex-col items-center gap-1 rounded-lg p-1 outline-none select-none"
             >
               {/* Icon picture: soft see-through box behind it when selected */}
               <span
@@ -75,7 +80,7 @@ export default function DesktopIcons({
 
               {/* Label: highlighted pill when selected, like macOS */}
               <span
-                className={`rounded px-1.5 py-0.5 text-center text-xs font-medium leading-tight ${
+                className={`rounded px-1.5 py-0.5 text-center text-xs font-medium leading-tight break-words ${
                   isSelected ? "bg-accent text-on-accent" : "text-text"
                 } group-focus-visible:ring-2 group-focus-visible:ring-accent`}
               >
