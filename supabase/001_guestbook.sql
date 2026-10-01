@@ -1,8 +1,5 @@
 -- =====================================================================
 -- SebikaOS guestbook: table, doodle storage, and security rules.
--- Paste this whole file into Supabase → SQL Editor → New query → Run.
--- (Kept in the repo so you always have a record of how the database is set up.)
--- =====================================================================
 
 
 -- 1) THE TABLE: one row per guestbook entry ---------------------------
