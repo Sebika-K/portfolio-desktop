@@ -1,4 +1,4 @@
-import { useEffect, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useState, type CSSProperties } from "react";
 import DesktopIcons from "./components/desktop/DesktopIcons";
 import WindowShell from "./components/desktop/WindowShell";
 import MobilePanel from "./components/mobile/MobilePanel";
@@ -9,6 +9,8 @@ import ProjectsContent from "./components/sections/ProjectsContent";
 import SkillsContent from "./components/sections/SkillsContent";
 import TopBar from "./components/desktop/TopBar";
 import Taskbar from "./components/desktop/Taskbar";
+import LockScreen from "./components/lock/LockScreen";
+import LoadingScreen from "./components/lock/LoadingScreen";
 import useIsMobile from "./hooks/useIsMobile";
 import useFitScale from "./hooks/useFitScale";
 import { sections, type SectionId } from "./data/sections";
@@ -33,6 +35,25 @@ export default function App() {
       ? visibleWindows.reduce((top, w) => (w.zIndex > top.zIndex ? w : top)).id
       : null;
   const [isDark, setIsDark] = useState(false);
+
+  // Where the visitor is: on the lock screen, watching it load, or on the desktop.
+  const [screen, setScreen] = useState<"locked" | "loading" | "desktop">(
+    "locked",
+  );
+  const LOADING_MS = 1200; // how long the loading screen shows
+
+  // useCallback keeps the same function between renders, so the lock
+  // screen's keyboard listener isn't removed and re-added every second.
+  const handleEnter = useCallback(() => {
+    setScreen((current) => (current === "locked" ? "loading" : current));
+  }, []);
+
+  // When loading starts, switch to the desktop after LOADING_MS.
+  useEffect(() => {
+    if (screen !== "loading") return;
+    const id = setTimeout(() => setScreen("desktop"), LOADING_MS);
+    return () => clearTimeout(id);
+  }, [screen]);
 
   // Put a "dark" class on <html> whenever dark mode is on.
   // index.css uses that class to swap every theme color at once.
@@ -173,6 +194,17 @@ export default function App() {
             >
               {renderContent(mobileSection)}
             </MobilePanel>
+          )}
+        </AnimatePresence>
+
+        {/* Lock screen and loading screen sit on top of the desktop.
+            AnimatePresence lets each one play its fade-out before it's removed. */}
+        <AnimatePresence>
+          {screen === "locked" && (
+            <LockScreen key="lock" onEnter={handleEnter} />
+          )}
+          {screen === "loading" && (
+            <LoadingScreen key="loading" duration={LOADING_MS} />
           )}
         </AnimatePresence>
       </div>
