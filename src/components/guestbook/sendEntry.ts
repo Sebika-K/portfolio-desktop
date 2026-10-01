@@ -5,7 +5,8 @@ import { supabase } from "../../lib/supabase";
 //   2. add a row to the guestbook_entries table (it starts unapproved)
 // Throws an Error if anything fails, so the form can show a message.
 export async function sendEntry(entry: {
-  name: string;
+  name: string; // may be empty: names are optional
+  showName: boolean; // did they tick "show my name with my doodle"?
   message: string;
   doodle: Blob | null;
 }) {
@@ -25,12 +26,18 @@ export async function sendEntry(entry: {
     if (uploadError) throw new Error(`Doodle upload failed: ${uploadError.message}`);
   }
 
-  // Only these three columns: the database fills in id, created_at, and
-  // approved = false by itself (visitors aren't allowed to set those).
+  // Empty name → store nothing (null) instead of "".
+  const name = entry.name.trim() || null;
+
+  // The database fills in id, created_at, and approved = false by itself
+  // (visitors aren't allowed to set those).
+  // public_name is the ONLY name the wall can ever read, so it's only
+  // filled in when the visitor chose to show it, and there's a doodle to show.
   const { error: insertError } = await supabase
     .from("guestbook_entries")
     .insert({
-      name: entry.name.trim(),
+      name,
+      public_name: entry.showName && name && doodlePath ? name : null,
       message: entry.message.trim(),
       doodle_path: doodlePath,
     });

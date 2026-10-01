@@ -31,6 +31,7 @@ function setLastSent() {
 export default function Guestbook() {
   const canvas = useRef<DrawingCanvasHandle>(null);
   const [name, setName] = useState("");
+  const [showName, setShowName] = useState(true);
   const [message, setMessage] = useState("");
   const [botcheck, setBotcheck] = useState(false); // honeypot, like the contact form
   const [status, setStatus] = useState<Status>("idle");
@@ -60,7 +61,7 @@ export default function Guestbook() {
         ? await canvas.current.toBlob()
         : null;
 
-      await sendEntry({ name, message, doodle });
+      await sendEntry({ name, showName, message, doodle });
 
       setLastSent();
       setStatus("success");
@@ -79,8 +80,9 @@ export default function Guestbook() {
       <div>
         <h2 className="text-3xl font-bold text-accent">Guestbook</h2>
         <p className="mt-2 text-sm leading-6 text-text-muted">
-          Leave a note (and a doodle, if you like!). Entries show up on the
-          wall once I've had a look.
+          Leave me a note, and a doodle if you like! Your note is just for me.
+          Approved doodles go up on the wall, with your name only if you
+          choose.
         </p>
       </div>
 
@@ -102,11 +104,10 @@ export default function Guestbook() {
 
         <div>
           <label htmlFor="gb-name" className="mb-2 block text-sm font-medium text-text-strong">
-            Name
+            Name <span className="font-normal text-text-faint">(optional)</span>
           </label>
           <input
             id="gb-name"
-            required
             maxLength={NAME_MAX}
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -117,7 +118,7 @@ export default function Guestbook() {
 
         <div>
           <label htmlFor="gb-message" className="mb-2 block text-sm font-medium text-text-strong">
-            Note
+            Note <span className="font-normal text-text-faint">(only I'll see this)</span>
           </label>
           <textarea
             id="gb-message"
@@ -140,6 +141,19 @@ export default function Guestbook() {
             Doodle <span className="font-normal text-text-faint">(optional)</span>
           </p>
           <DrawingCanvas ref={canvas} width={600} height={360} />
+
+          {/* Only offered once they've typed a name */}
+          {name.trim() && (
+            <label className="mt-3 flex items-center gap-2 text-sm text-text">
+              <input
+                type="checkbox"
+                checked={showName}
+                onChange={(e) => setShowName(e.target.checked)}
+                className="h-4 w-4 accent-accent"
+              />
+              Show my name next to my doodle on the wall
+            </label>
+          )}
         </div>
 
         <button
