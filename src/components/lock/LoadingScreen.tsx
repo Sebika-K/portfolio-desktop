@@ -7,7 +7,7 @@ export default function LoadingScreen({ duration }: { duration: number }) {
     <motion.div
       exit={{ opacity: 0 }}
       transition={{ duration: 0.3 }}
-      className="fixed inset-0 z-[2000] flex flex-col items-center justify-center gap-4 bg-page text-white [text-shadow:0_1px_3px_rgb(0_0_0/0.25)]"
+      className="fixed inset-0 z-[2000] flex flex-col items-center justify-center gap-4 text-white [text-shadow:0_1px_3px_rgb(0_0_0/0.25)]"
       role="status"
       aria-label="Loading SebikaOS"
     >

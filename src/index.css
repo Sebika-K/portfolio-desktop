@@ -6,6 +6,11 @@
    Tailwind turns every --color-NAME into classes like bg-NAME, text-NAME.
    Light values live here; the .dark block below swaps them when
    <html> has the "dark" class (App.tsx adds/removes it). */
+/* How visible the clouds are: full in light mode, faint at night. */
+:root {
+  --cloud-opacity: 1;
+}
+
 @theme {
   --color-page: #add8e6; /* screen background */
   --color-icon: #444444; /* toggle + social icons */
@@ -40,6 +45,7 @@
 }
 
 .dark {
+  --cloud-opacity: 0.25;
   --color-page: #1a1a1a;
   --color-icon: #ffffff;
   --color-menubar: rgb(0 0 0 / 0.35);

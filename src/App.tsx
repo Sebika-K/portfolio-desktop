@@ -11,6 +11,7 @@ import ExperienceContent from "./components/sections/ExperienceContent";
 import ProjectsContent from "./components/sections/ProjectsContent";
 import SkillsContent from "./components/sections/SkillsContent";
 import TopBar from "./components/desktop/TopBar";
+import Clouds from "./components/sky/Clouds";
 import Taskbar from "./components/desktop/Taskbar";
 import LockScreen from "./components/lock/LockScreen";
 import LoadingScreen from "./components/lock/LoadingScreen";
@@ -148,6 +149,10 @@ export default function App() {
 
   return (
     <main className="relative h-screen overflow-hidden bg-page transition-colors">
+      {/* Clouds sit behind everything, on the lock screen and the desktop.
+          Outside the scaled stage, so they always span the real screen. */}
+      <Clouds />
+
       {/* The "stage": everything on the desktop lives inside this box.
           It is made 1/scale times the screen size, then shrunk/grown by
           `scale`, so it always exactly covers the screen. Everything inside
@@ -162,50 +167,56 @@ export default function App() {
           "--scale": scale,
         } as CSSProperties}
       >
-        {/* Menu bar across the top: name, links, theme toggle, clock */}
-        <TopBar isDark={isDark} onToggleDark={() => setIsDark(!isDark)} />
+        {/* The desktop itself only appears after the lock screen, so the
+            lock screen can be see-through (showing just sky and clouds). */}
+        {screen === "desktop" && (
+          <>
+            {/* Menu bar across the top: name, links, theme toggle, clock */}
+            <TopBar isDark={isDark} onToggleDark={() => setIsDark(!isDark)} />
 
-        {/* Icons sitting on the wallpaper (the old Home window is gone) */}
-        <DesktopIcons onOpenSection={handleOpenSection} isMobile={isMobile} />
+            {/* Icons sitting on the wallpaper (the old Home window is gone) */}
+            <DesktopIcons onOpenSection={handleOpenSection} isMobile={isMobile} />
 
-        <AnimatePresence>
-          {!isMobile &&
-            windows.map((win) => (
-              <WindowShell
-                key={win.id}
-                title={sections.find((s) => s.id === win.id)?.title || ""}
-                onClose={() => handleCloseWindow(win.id)}
-                onMinimize={() => minimizeWindow(win.id)}
-                minimized={win.minimized}
-                zIndex={win.zIndex}
-                onFocus={() => bringToFront(win.id)}
-                scale={scale}
-                bodyClassName={win.id === "terminal" ? "" : undefined}
-              >
-                {renderContent(win.id)}
-              </WindowShell>
-            ))}
-        </AnimatePresence>
+            <AnimatePresence>
+              {!isMobile &&
+                windows.map((win) => (
+                  <WindowShell
+                    key={win.id}
+                    title={sections.find((s) => s.id === win.id)?.title || ""}
+                    onClose={() => handleCloseWindow(win.id)}
+                    onMinimize={() => minimizeWindow(win.id)}
+                    minimized={win.minimized}
+                    zIndex={win.zIndex}
+                    onFocus={() => bringToFront(win.id)}
+                    scale={scale}
+                    bodyClassName={win.id === "terminal" ? "" : undefined}
+                  >
+                    {renderContent(win.id)}
+                  </WindowShell>
+                ))}
+            </AnimatePresence>
 
-        {/* Taskbar along the bottom (desktop only; phones use the slide-up panel) */}
-        {!isMobile && (
-          <Taskbar
-            windows={windows}
-            activeId={activeId}
-            onTabClick={handleTaskbarClick}
-          />
+            {/* Taskbar along the bottom (desktop only; phones use the slide-up panel) */}
+            {!isMobile && (
+              <Taskbar
+                windows={windows}
+                activeId={activeId}
+                onTabClick={handleTaskbarClick}
+              />
+            )}
+
+            <AnimatePresence>
+              {isMobile && mobileSection && (
+                <MobilePanel
+                  title={sections.find((s) => s.id === mobileSection)?.title || ""}
+                  onClose={handleCloseMobilePanel}
+                >
+                  {renderContent(mobileSection)}
+                </MobilePanel>
+              )}
+            </AnimatePresence>
+          </>
         )}
-
-        <AnimatePresence>
-          {isMobile && mobileSection && (
-            <MobilePanel
-              title={sections.find((s) => s.id === mobileSection)?.title || ""}
-              onClose={handleCloseMobilePanel}
-            >
-              {renderContent(mobileSection)}
-            </MobilePanel>
-          )}
-        </AnimatePresence>
 
         {/* Lock screen and loading screen sit on top of the desktop.
             AnimatePresence lets each one play its fade-out before it's removed. */}

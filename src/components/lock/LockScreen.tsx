@@ -45,7 +45,7 @@ export default function LockScreen({ onEnter }: LockScreenProps) {
       exit={{ opacity: 0, scale: 1.03 }}
       transition={{ duration: 0.4 }}
       onClick={onEnter}
-      className="fixed inset-0 z-[2000] flex cursor-pointer select-none flex-col items-center justify-center gap-8 bg-page text-white [text-shadow:0_1px_3px_rgb(0_0_0/0.25)]"
+      className="fixed inset-0 z-[2000] flex cursor-pointer select-none flex-col items-center justify-center gap-8 text-white [text-shadow:0_1px_3px_rgb(0_0_0/0.25)]"
     >
       <p className="text-sm font-semibold uppercase tracking-[0.3em]">
         Welcome to SebikaOS
