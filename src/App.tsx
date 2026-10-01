@@ -6,6 +6,7 @@ import AboutContent from "./components/sections/AboutContent";
 import ContactContent from "./components/sections/ContactContent";
 import Terminal from "./components/terminal/Terminal";
 import Paint from "./components/paint/Paint";
+import Guestbook from "./components/guestbook/Guestbook";
 import AboutSiteContent from "./components/sections/AboutSiteContent";
 import ExperienceContent from "./components/sections/ExperienceContent";
 import ProjectsContent from "./components/sections/ProjectsContent";
@@ -137,6 +138,8 @@ export default function App() {
         return <ContactContent />;
       case "about-site":
         return <AboutSiteContent />;
+      case "guestbook":
+        return <Guestbook />;
       case "paint":
         return <Paint />;
       case "terminal":

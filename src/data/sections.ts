@@ -6,6 +6,7 @@ export const sections = [
   { id: "contact", title: "Contact", icon: "/icons/contact.png" },
   { id: "terminal", title: "Terminal", icon: "/icons/terminal.svg" },
   { id: "paint", title: "Paint", icon: "/icons/paint.svg" },
+  { id: "guestbook", title: "Guestbook", icon: "/icons/guestbook.svg" },
   {
     id: "about-site",
     title: "about-this-site.txt",
