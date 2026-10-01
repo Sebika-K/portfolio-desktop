@@ -1,6 +1,7 @@
 import { useRef, useState, type FormEvent } from "react";
 import DrawingCanvas, { type DrawingCanvasHandle } from "../paint/DrawingCanvas";
 import { sendEntry } from "./sendEntry";
+import DoodleWall from "./DoodleWall";
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -36,6 +37,8 @@ export default function Guestbook() {
   const [botcheck, setBotcheck] = useState(false); // honeypot, like the contact form
   const [status, setStatus] = useState<Status>("idle");
   const [errorText, setErrorText] = useState("");
+  // Which tab is showing: the wall of doodles, or the sign-in form.
+  const [tab, setTab] = useState<"wall" | "sign">("wall");
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -86,8 +89,40 @@ export default function Guestbook() {
         </p>
       </div>
 
+      {/* Tabs */}
+      <div className="flex gap-2" role="tablist" aria-label="Guestbook">
+        {(
+          [
+            ["wall", "Doodle wall"],
+            ["sign", "Sign the guestbook"],
+          ] as const
+        ).map(([id, label]) => (
+          <button
+            key={id}
+            type="button"
+            role="tab"
+            aria-selected={tab === id}
+            onClick={() => setTab(id)}
+            className={`rounded-lg border px-3 py-1.5 text-sm font-medium transition ${
+              tab === id
+                ? "border-outline bg-accent text-on-accent"
+                : "border-line text-text hover:bg-cream"
+            }`}
+          >
+            {label}
+          </button>
+        ))}
+      </div>
+
+      {/* The wall is only mounted while its tab is open, so it loads fresh
+          each time you switch to it. */}
+      {tab === "wall" && <DoodleWall />}
+
+      {/* The form stays mounted but hidden, so a half-drawn doodle isn't lost
+          when you peek at the wall. */}
       <form
         onSubmit={handleSubmit}
+        hidden={tab !== "sign"}
         className="space-y-4 rounded-2xl border border-line bg-panel/70 p-5"
       >
         {/* Honeypot: hidden from people, tempting for bots */}
