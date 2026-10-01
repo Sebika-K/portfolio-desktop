@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Contact: an envelope with a heart seal -->
+  <rect x="8" y="16" width="48" height="34" rx="4" fill="#f4b6c2" stroke="#1a1a1a" stroke-width="2.5"/>
+  <path d="M9 18l23 18 23-18" fill="none" stroke="#1a1a1a" stroke-width="2.5" stroke-linejoin="round"/>
+  <path d="M32 40c-1.6-3.2-6.4-2.4-6.4.8 0 3.2 6.4 7.2 6.4 7.2s6.4-4 6.4-7.2c0-3.2-4.8-4-6.4-.8z" fill="#fff4e0" stroke="#1a1a1a" stroke-width="2"/>
+</svg>
