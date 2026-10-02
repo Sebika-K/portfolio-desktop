@@ -54,7 +54,7 @@ function LinkedInIcon({ size }: { size: number }) {
   );
 }
 
-function GitHubIcon({ size }: { size: number }) {
+export function GitHubIcon({ size }: { size: number }) {
   return (
     <svg
       width={size}
