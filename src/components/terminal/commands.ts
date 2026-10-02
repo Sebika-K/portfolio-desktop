@@ -75,6 +75,7 @@ export function runCommand(input: string): CommandResult {
       };
 
     case "skills":
+    case "specs": // the window is called "My Specs", so both words work
       return {
         lines: skillGroups.map((g) => `${g.title}: ${g.items.join(", ")}`),
       };
@@ -86,7 +87,9 @@ export function runCommand(input: string): CommandResult {
       return { lines: [sections.map((s) => s.id).join("   ")] };
 
     case "open": {
-      const target = sections.find((s) => s.id === args[0]);
+      // "specs" is a nickname for the skills window (shown as "My Specs").
+      const name = args[0] === "specs" ? "skills" : args[0];
+      const target = sections.find((s) => s.id === name);
       if (!target) {
         return { lines: [`open: no app called "${args[0] ?? ""}". try \`ls\`.`] };
       }
