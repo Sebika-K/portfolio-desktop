@@ -1,100 +1,107 @@
+import { about } from "../../data/about";
+
+// The About Me window. The words come from data/about.ts; this file only
+// decides how they look. Uses the theme colors, so it works in dark mode too.
+
+// A small section heading, reused for every section below.
+function SectionTitle({ children }: { children: string }) {
+  return (
+    <h3 className="mb-2 font-indie text-xl text-accent">
+      {children}
+    </h3>
+  );
+}
+
 export default function AboutContent() {
   return (
-    <div className="space-y-6 text-text-strong">
-      {/* Top section */}
-      <div className="flex flex-col items-center gap-6 text-center md:flex-row md:items-start md:text-left">
-        {/* Profile Image */}
-        <div className="h-28 w-35 overflow-hidden rounded-full border border-accent">
-          <img
-            src="/profile.jpg"
-            alt="Sebika"
-            className="h-full w-full object-cover"
-          />
-        </div>
+    <div className="space-y-7 text-text">
+      {/* Header card: photo, name, tagline, badges */}
+      <header className="flex flex-col items-center gap-5 rounded-2xl border border-line bg-panel/70 p-5 text-center sm:flex-row sm:text-left">
+        {/* TODO: swap in your drawn avatar once it's ready */}
+        <img
+          src="/profile.jpg"
+          alt="Sebika Khulal"
+          className="h-28 w-28 shrink-0 rounded-full border-4 border-accent/60 object-cover shadow-md"
+        />
 
-        {/* Name + Subtitle */}
         <div>
-          <h2 className="text-3xl font-bold tracking-wide text-accent md:text-4xl">
-            Sebika Khulal
-          </h2>
+          <h2 className="text-3xl font-bold text-text-strong">{about.name}</h2>
+          <p className="mt-1 font-indie text-lg text-text-muted">{about.tagline}</p>
 
-          <p className="mt-2 text-sm leading-6 text-text-muted">
-            Software Engineer | Frontend Focus | React, TypeScript |
-            Full-Stack (Flask, Node) | Student Ambassador @
-            <span className="text-accent"> Adobe</span>
-          </p>
+          <ul className="mt-3 flex flex-wrap justify-center gap-2 sm:justify-start">
+            {about.badges.map((badge) => (
+              <li
+                key={badge}
+                className="rounded-full border border-line bg-cream px-3 py-1 text-xs font-medium text-text"
+              >
+                {badge}
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
+      </header>
 
       {/* Intro */}
-      <div className="space-y-3 text-sm leading-7 text-text md:text-base">
-        <p>
-          Hi! I am Sebika, a coder, a designer, a thinker. I started with coding,
-          and fell in love with learning designs on the way. I am a full stack
-          developer who slightly leans more towards the intersection of frontend
-          development and design.
-        </p>
+      <section className="space-y-3 text-sm leading-7 md:text-base">
+        {about.intro.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
+      </section>
 
-        <ul className="list-disc space-y-1 pl-5">
-          <li>do full stack!</li>
-          <li>do front end development</li>
-          <li>play around in procreate and figma</li>
-          <li>i have fun when i get to see design</li>
-          <li>
-            I love sun..sky.. a good sunset takes away all my problems (I have a
-            sun tattoo lol)
-          </li>
+      {/* Two columns on wide windows, stacked on narrow ones */}
+      <div className="grid gap-6 md:grid-cols-2">
+        <section>
+          <SectionTitle>currently</SectionTitle>
+          <ul className="space-y-2 text-sm leading-6">
+            {about.currently.map((item) => (
+              <li key={item} className="flex gap-2">
+                <span aria-hidden="true" className="text-accent">→</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+
+        <section>
+          <SectionTitle>into</SectionTitle>
+          <ul className="space-y-2 text-sm leading-6">
+            {about.into.map((item) => (
+              <li key={item} className="flex gap-2">
+                <span aria-hidden="true" className="text-accent">✦</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      </div>
+
+      {/* Someday: a little life to-do list */}
+      <section>
+        <SectionTitle>someday</SectionTitle>
+        <ul className="grid gap-2 sm:grid-cols-2">
+          {about.someday.map((goal) => (
+            <li
+              key={goal}
+              className="flex items-start gap-2 rounded-xl border border-line bg-card/70 px-3 py-2 text-sm"
+            >
+              {/* an empty checkbox circle: not done yet! */}
+              <span
+                aria-hidden="true"
+                className="mt-1 h-3.5 w-3.5 shrink-0 rounded-full border-2 border-accent"
+              />
+              <span>{goal}</span>
+            </li>
+          ))}
         </ul>
-      </div>
+      </section>
 
-      {/* Education */}
-      <div className="space-y-2">
-        <h3 className="text-sm font-bold tracking-wide text-text-strong">
-          EDUCATION
-        </h3>
-
-        <p className="text-sm text-text">
-          Texas State University - San Marcos, TX
-        </p>
-
-        <p className="text-sm font-semibold text-text-strong">
-          Bachelor of Science in Computer Science with Honors
-        </p>
-
-        <p className="text-sm text-text-muted">
-          Cumulative GPA: 3.7 | Expected Graduation: December 2026
-        </p>
-      </div>
-
-      {/* Mini Goals */}
-      <div className="space-y-2">
-        <h3 className="text-sm font-bold tracking-wide text-text-strong">
-          MINI GOALS
-        </h3>
-
-        <ul className="text-sm text-text">
-          <li>Hike to Yosemite</li>
-          <li>Watch more sunsets</li>
-          <li>See Aurora</li>
-          <li>
-            see lands and lands of wildflowers.. so far that I cannot see the end
-            of it
-          </li>
-        </ul>
-      </div>
-
-      {/* Fun elements */}
-      <div className="flex justify-end gap-3">
-        <div className="h-12 w-12 overflow-hidden rounded-full border-2 border-outline">
-          <img
-            src="/avatar.png"
-            alt="avatar"
-            className="h-full w-full object-cover"
-          />
-        </div>
-
-        <div className="text-3xl">🐸</div>
-      </div>
+      {/* Education, kept short */}
+      <section>
+        <SectionTitle>school</SectionTitle>
+        <p className="text-sm font-semibold text-text-strong">{about.education.degree}</p>
+        <p className="text-sm">{about.education.school}</p>
+        <p className="text-sm text-text-muted">{about.education.details}</p>
+      </section>
     </div>
-  )
+  );
 }
