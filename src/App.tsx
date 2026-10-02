@@ -193,7 +193,10 @@ export default function App() {
                     zIndex={win.zIndex}
                     onFocus={() => bringToFront(win.id)}
                     scale={scale}
-                    bodyClassName={win.id === "terminal" ? "" : undefined}
+                    // Terminal and Projects reach the window edges (no padding)
+                    bodyClassName={win.id === "terminal" || win.id === "projects" ? "" : undefined}
+                    width={win.id === "projects" ? 880 : undefined}
+                    height={win.id === "projects" ? 560 : undefined}
                   >
                     {renderContent(win.id)}
                   </WindowShell>

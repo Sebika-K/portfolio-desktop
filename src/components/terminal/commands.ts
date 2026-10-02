@@ -63,7 +63,7 @@ export function runCommand(input: string): CommandResult {
     case "projects":
       return {
         lines: [
-          ...projects.map((p) => `• ${p.title}${p.tags ? `  [${p.tags.join(", ")}]` : ""}`),
+          ...projects.map((p) => `• ${p.title}  [${p.tech.slice(0, 4).join(", ")}]`),
           "",
           "type `open projects` for details.",
         ],

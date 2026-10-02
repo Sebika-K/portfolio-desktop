@@ -19,6 +19,9 @@ type WindowShellProps = {
   // Classes for the area inside the window. Most apps want padding;
   // the Terminal passes "" so its dark screen reaches the edges.
   bodyClassName?: string
+  // Starting size. Most apps use 760×500; roomier apps (Projects) ask for more.
+  width?: number
+  height?: number
 }
 
 export default function WindowShell({
@@ -31,9 +34,9 @@ export default function WindowShell({
   onFocus,
   scale,
   bodyClassName = "px-6 py-6",
+  width: defaultWidth = 760,
+  height: defaultHeight = 500,
 }: WindowShellProps) {
-  const defaultWidth = 760
-  const defaultHeight = 500
 
   // Worked out once, when the window first opens (useState's starter function).
   const [defaultPosition] = useState(() => {
