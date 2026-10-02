@@ -54,9 +54,8 @@ export function runCommand(input: string): CommandResult {
       return {
         lines: [
           "Sebika Khulal",
-          "software engineer · designer · creative builder",
-          "frontend-leaning full-stack dev (React, TypeScript, Flask, Node)",
-          "student ambassador @ Adobe",
+          "software engineer @ Utilyze, Inc. · Texas State CS '26",
+          "full-stack dev, diving deep into AI/ML",
           "loves the sky, and a good sunset fixes everything.",
         ],
       };
