@@ -172,7 +172,11 @@ export default function App() {
         {screen === "desktop" && (
           <>
             {/* Menu bar across the top: name, links, theme toggle, clock */}
-            <TopBar isDark={isDark} onToggleDark={() => setIsDark(!isDark)} />
+            <TopBar
+              isDark={isDark}
+              onToggleDark={() => setIsDark(!isDark)}
+              showClock={isMobile}
+            />
 
             {/* Icons sitting on the wallpaper (the old Home window is gone) */}
             <DesktopIcons onOpenSection={handleOpenSection} isMobile={isMobile} />
