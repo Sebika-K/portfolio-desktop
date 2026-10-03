@@ -48,7 +48,6 @@ export const aboutSite: TextBlock[] = [
     heading: "Art",
     lines: [
       "The clouds drifting across the sky and the “Dreamers unite” drawing on the Contact page are hand-drawn by me in Procreate.",
-      "The icons are placeholders for now; my own set is on the way.",
     ],
   },
 ];
