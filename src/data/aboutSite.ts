@@ -12,7 +12,7 @@ export const aboutSite: TextBlock[] = [
     heading: "SebikaOS",
     lines: [
       "A desktop simulation that doubles as my portfolio.",
-      "Double-click icons to open apps, drag windows around, tuck them into the taskbar, and use the ⏻ button to sleep, restart or shut down. Poke around: some things are hidden (the Terminal is a good place to start).",
+      "Click icons to open apps, drag windows around, tuck them into the taskbar, and use the ⏻ button to sleep, restart or shut down. Poke around: some things are hidden (the Terminal is a good place to start).",
     ],
   },
   {

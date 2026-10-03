@@ -219,6 +219,17 @@ export default function App() {
             {/* Icons sitting on the wallpaper (the old Home window is gone) */}
             <DesktopIcons onOpenSection={handleOpenSection} isMobile={isMobile} />
 
+            {/* The windows' "safe zone": an invisible box from just below the
+                top bar (top-9 = 36px) to just above the taskbar (bottom-12 =
+                48px). WindowShell keeps every window inside it.
+                pointer-events-none: it never blocks clicks on the icons. */}
+            {!isMobile && (
+              <div
+                className="window-bounds pointer-events-none absolute inset-x-0 top-9 bottom-12"
+                aria-hidden="true"
+              />
+            )}
+
             <AnimatePresence>
               {!isMobile &&
                 windows.map((win) => (

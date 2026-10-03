@@ -1,4 +1,4 @@
-import { useState, type KeyboardEvent } from "react";
+import { useState } from "react";
 import { sections, type SectionId } from "../../data/sections";
 
 type DesktopIconsProps = {
@@ -9,27 +9,18 @@ type DesktopIconsProps = {
 // The icons that sit directly on the desktop wallpaper, in a column on the
 // left, like files on a Mac or PC desktop.
 //
-// Desktop behavior (like a real computer):
-//   - one click   → selects the icon (it gets highlighted)
-//   - double-click → opens it
-//   - Enter / Space when focused → opens it (so keyboard users can too)
-// On phones there's no double-click, so one tap opens it.
+// One click (or tap) opens an app. Real desktops use double-click, but
+// this is a website: visitors expect one click, and many would think a
+// double-click-only icon is broken. The icon also stays highlighted, like
+// a selected file, until you click empty wallpaper.
+// Keyboard users get this for free: Enter or Space on a focused <button>
+// counts as a click.
 export default function DesktopIcons({
   onOpenSection,
   isMobile,
 }: DesktopIconsProps) {
   // Which icon is highlighted right now (null = none).
   const [selectedId, setSelectedId] = useState<SectionId | null>(null);
-
-  const handleKeyDown = (
-    event: KeyboardEvent<HTMLButtonElement>,
-    id: SectionId,
-  ) => {
-    if (event.key === "Enter" || event.key === " ") {
-      event.preventDefault(); // stop the button's normal "click" (which only selects)
-      onOpenSection(id);
-    }
-  };
 
   return (
     <>
@@ -57,11 +48,10 @@ export default function DesktopIcons({
             <button
               key={item.id}
               type="button"
-              onClick={() =>
-                isMobile ? onOpenSection(item.id) : setSelectedId(item.id)
-              }
-              onDoubleClick={() => onOpenSection(item.id)}
-              onKeyDown={(e) => handleKeyDown(e, item.id)}
+              onClick={() => {
+                setSelectedId(item.id);
+                onOpenSection(item.id);
+              }}
               className="group flex w-28 flex-col items-center gap-1 rounded-lg p-1 outline-none select-none"
             >
               {/* Icon picture: soft see-through box behind it when selected */}

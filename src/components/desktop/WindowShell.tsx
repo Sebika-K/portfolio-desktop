@@ -57,7 +57,10 @@ export default function WindowShell({
       default={defaultPosition}
       minWidth={420}
       minHeight={300}
-      bounds="parent"
+      // Windows can only move (and resize) inside the "safe zone" between
+      // the top bar and the taskbar (the .window-bounds box in App.tsx), so
+      // a title bar can never slide under the top bar and get stuck there.
+      bounds=".window-bounds"
       scale={scale}
       style={{ zIndex, display: minimized ? "none" : undefined }}
       onMouseDown={onFocus}
