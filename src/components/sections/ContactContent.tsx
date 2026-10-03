@@ -1,4 +1,5 @@
-import { useState, type FormEvent } from "react"
+import { useState, type ChangeEvent, type FormEvent } from "react"
+import { LINKEDIN_URL } from "../../data/links"
 
 // Where Web3Forms receives messages. It then emails them to you.
 const WEB3FORMS_URL = "https://api.web3forms.com/submit"
@@ -15,6 +16,16 @@ export default function ContactContent() {
   // Spam trap ("honeypot"): a hidden checkbox people never see, but bots
   // that fill in every field will tick. If it's ticked, it's a bot.
   const [botcheck, setBotcheck] = useState(false)
+
+  // Used by all three fields. It saves what was typed, and if the
+  // "Thanks! Your message was sent" line is showing, hides it: the visitor
+  // is writing a new message, which hasn't been sent yet.
+  const handleTyping =
+    (setValue: (value: string) => void) =>
+    (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      setValue(event.target.value)
+      if (status === "success") setStatus("idle")
+    }
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     // Stop the browser's default "reload the page" behavior on submit.
@@ -102,7 +113,7 @@ export default function ContactContent() {
                 type="text"
                 required
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={handleTyping(setName)}
                 placeholder="Your name"
                 className="w-full rounded-xl border border-line bg-card px-4 py-3 text-sm outline-none transition focus:border-accent"
               />
@@ -120,7 +131,7 @@ export default function ContactContent() {
                 type="email"
                 required
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={handleTyping(setEmail)}
                 placeholder="you@example.com"
                 className="w-full rounded-xl border border-line bg-card px-4 py-3 text-sm outline-none transition focus:border-accent"
               />
@@ -138,7 +149,7 @@ export default function ContactContent() {
                 rows={6}
                 required
                 value={message}
-                onChange={(e) => setMessage(e.target.value)}
+                onChange={handleTyping(setMessage)}
                 placeholder="Write your message here..."
                 className="w-full resize-none rounded-xl border border-line bg-card px-4 py-3 text-sm outline-none transition focus:border-accent"
               />
@@ -160,8 +171,19 @@ export default function ContactContent() {
                 </span>
               )}
               {status === "error" && (
+                // If sending fails (no internet, or the form service is down),
+                // offer LinkedIn so the visitor can still reach Sebika.
                 <span className="text-text-strong">
-                  Sorry, something went wrong. Please try again in a moment.
+                  Sorry, something went wrong. Please try again, or message me on{" "}
+                  <a
+                    href={LINKEDIN_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="font-semibold underline underline-offset-2"
+                  >
+                    LinkedIn
+                  </a>
+                  .
                 </span>
               )}
             </p>
