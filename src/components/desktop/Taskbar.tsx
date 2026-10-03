@@ -10,6 +10,7 @@ type TaskbarProps = {
   onTabClick: (id: SectionId) => void;
   onSleep: () => void;
   onRestart: () => void;
+  onShutDown: () => void;
 };
 
 // The bar along the bottom of the screen: the ⏻ power button on the left,
@@ -20,10 +21,11 @@ export default function Taskbar({
   onTabClick,
   onSleep,
   onRestart,
+  onShutDown,
 }: TaskbarProps) {
   return (
     <div className="fixed inset-x-0 bottom-0 z-[1000] flex h-12 items-center gap-2 bg-menubar px-3 backdrop-blur-md">
-      <PowerMenu onSleep={onSleep} onRestart={onRestart} />
+      <PowerMenu onSleep={onSleep} onRestart={onRestart} onShutDown={onShutDown} />
 
       {/* Tabs take all the space they can (flex-1), pushing the clock right */}
       <nav aria-label="Open windows" className="flex min-w-0 flex-1 items-center gap-2">

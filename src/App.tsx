@@ -16,6 +16,7 @@ import Clouds from "./components/sky/Clouds";
 import Taskbar from "./components/desktop/Taskbar";
 import LockScreen from "./components/lock/LockScreen";
 import LoadingScreen from "./components/lock/LoadingScreen";
+import ShutdownScreen from "./components/lock/ShutdownScreen";
 import useIsMobile from "./hooks/useIsMobile";
 import useFitScale from "./hooks/useFitScale";
 import { sections, type SectionId } from "./data/sections";
@@ -41,8 +42,9 @@ export default function App() {
       : null;
   const [isDark, setIsDark] = useState(false);
 
-  // Where the visitor is: on the lock screen, watching it load, or on the desktop.
-  const [screen, setScreen] = useState<"locked" | "loading" | "desktop">(
+  // Where the visitor is: on the lock screen, watching it load, on the
+  // desktop, or on the "shut down" screen.
+  const [screen, setScreen] = useState<"locked" | "loading" | "desktop" | "off">(
     "locked",
   );
   const LOADING_MS = 1200; // how long the loading screen shows
@@ -80,6 +82,14 @@ export default function App() {
     setMobileSection(null);
     setHasBooted(false);
     setScreen("loading");
+  };
+  // Shut down: close every window and show the shutdown screen. Its power
+  // button goes to the lock screen, and unlocking boots fresh (loading bar).
+  const handleShutDown = () => {
+    setWindows([]);
+    setMobileSection(null);
+    setHasBooted(false);
+    setScreen("off");
   };
 
   // Put a "dark" class on <html> whenever dark mode is on.
@@ -243,6 +253,7 @@ export default function App() {
                 onTabClick={handleTaskbarClick}
                 onSleep={handleSleep}
                 onRestart={handleRestart}
+                onShutDown={handleShutDown}
               />
             )}
 
@@ -267,6 +278,9 @@ export default function App() {
           )}
           {screen === "loading" && (
             <LoadingScreen key="loading" duration={LOADING_MS} />
+          )}
+          {screen === "off" && (
+            <ShutdownScreen key="off" onPowerOn={() => setScreen("locked")} />
           )}
         </AnimatePresence>
       </div>

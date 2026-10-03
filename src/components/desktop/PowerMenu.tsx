@@ -3,11 +3,16 @@ import { useEffect, useRef, useState } from "react";
 type PowerMenuProps = {
   onSleep: () => void;
   onRestart: () => void;
+  onShutDown: () => void;
 };
 
 // The ⏻ power button at the left end of the taskbar, like the Start button
 // on Windows. Clicking it opens a small menu just above it.
-export default function PowerMenu({ onSleep, onRestart }: PowerMenuProps) {
+export default function PowerMenu({
+  onSleep,
+  onRestart,
+  onShutDown,
+}: PowerMenuProps) {
   const [open, setOpen] = useState(false);
   // Refs point at real elements on the page, so we can check
   // "was this click inside the menu?" and move keyboard focus.
@@ -35,10 +40,11 @@ export default function PowerMenu({ onSleep, onRestart }: PowerMenuProps) {
     };
   }, [open]);
 
-  // The menu's options. Shut down comes in the next step.
+  // The menu's options, top to bottom.
   const options = [
     { label: "Sleep", hint: "Lock the screen, keep windows", action: onSleep },
     { label: "Restart", hint: "Close everything and boot again", action: onRestart },
+    { label: "Shut down", hint: "Close everything and power off", action: onShutDown },
   ];
 
   return (
