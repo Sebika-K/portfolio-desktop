@@ -1,5 +1,6 @@
 import { sections, type SectionId } from "../../data/sections";
 import Clock from "./Clock";
+import PowerMenu from "./PowerMenu";
 
 type TaskbarProps = {
   // Every open window, in the order it was opened.
@@ -7,13 +8,23 @@ type TaskbarProps = {
   // The window currently in front (null if none is showing).
   activeId: SectionId | null;
   onTabClick: (id: SectionId) => void;
+  onSleep: () => void;
+  onRestart: () => void;
 };
 
-// The bar along the bottom of the screen with one tab per open window,
-// like the Windows taskbar, with the date and time on the right.
-export default function Taskbar({ windows, activeId, onTabClick }: TaskbarProps) {
+// The bar along the bottom of the screen: the ⏻ power button on the left,
+// one tab per open window, and the date and time on the right.
+export default function Taskbar({
+  windows,
+  activeId,
+  onTabClick,
+  onSleep,
+  onRestart,
+}: TaskbarProps) {
   return (
     <div className="fixed inset-x-0 bottom-0 z-[1000] flex h-12 items-center gap-2 bg-menubar px-3 backdrop-blur-md">
+      <PowerMenu onSleep={onSleep} onRestart={onRestart} />
+
       {/* Tabs take all the space they can (flex-1), pushing the clock right */}
       <nav aria-label="Open windows" className="flex min-w-0 flex-1 items-center gap-2">
         {windows.map((win) => {

@@ -46,19 +46,41 @@ export default function App() {
     "locked",
   );
   const LOADING_MS = 1200; // how long the loading screen shows
+  // Has the desktop finished booting? Once true, the desktop stays on the
+  // page even while the lock screen is showing (Sleep), so windows keep
+  // their places. Restart sets it back to false for a fresh boot.
+  const [hasBooted, setHasBooted] = useState(false);
 
+  // Unlocking: the first time it boots (loading bar); after Sleep it
+  // wakes straight back to the desktop, like a real computer.
   // useCallback keeps the same function between renders, so the lock
   // screen's keyboard listener isn't removed and re-added every second.
   const handleEnter = useCallback(() => {
-    setScreen((current) => (current === "locked" ? "loading" : current));
-  }, []);
+    setScreen((current) =>
+      current === "locked" ? (hasBooted ? "desktop" : "loading") : current,
+    );
+  }, [hasBooted]);
 
   // When loading starts, switch to the desktop after LOADING_MS.
   useEffect(() => {
     if (screen !== "loading") return;
-    const id = setTimeout(() => setScreen("desktop"), LOADING_MS);
+    const id = setTimeout(() => {
+      setHasBooted(true);
+      setScreen("desktop");
+    }, LOADING_MS);
     return () => clearTimeout(id);
   }, [screen]);
+
+  // Power menu actions (the ⏻ button in the taskbar).
+  // Sleep: show the lock screen, but leave the desktop and windows as they are.
+  const handleSleep = () => setScreen("locked");
+  // Restart: close every window and boot again through the loading bar.
+  const handleRestart = () => {
+    setWindows([]);
+    setMobileSection(null);
+    setHasBooted(false);
+    setScreen("loading");
+  };
 
   // Put a "dark" class on <html> whenever dark mode is on.
   // index.css uses that class to swap every theme color at once.
@@ -170,10 +192,13 @@ export default function App() {
           "--scale": scale,
         } as CSSProperties}
       >
-        {/* The desktop itself only appears after the lock screen, so the
-            lock screen can be see-through (showing just sky and clouds). */}
-        {screen === "desktop" && (
-          <>
+        {/* The desktop only appears once it has booted, so the first lock
+            screen can be see-through (showing just sky and clouds).
+            During Sleep it stays on the page but invisible, so windows
+            keep their places; invisible also stops it being clicked or
+            reached with the Tab key behind the lock screen. */}
+        {hasBooted && (
+          <div className={screen === "desktop" ? undefined : "invisible"}>
             {/* Menu bar across the top: name, links, theme toggle, clock */}
             <TopBar
               isDark={isDark}
@@ -216,6 +241,8 @@ export default function App() {
                 windows={windows}
                 activeId={activeId}
                 onTabClick={handleTaskbarClick}
+                onSleep={handleSleep}
+                onRestart={handleRestart}
               />
             )}
 
@@ -229,7 +256,7 @@ export default function App() {
                 </MobilePanel>
               )}
             </AnimatePresence>
-          </>
+          </div>
         )}
 
         {/* Lock screen and loading screen sit on top of the desktop.
