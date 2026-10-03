@@ -76,7 +76,7 @@ export default function LockScreen({ onEnter }: LockScreenProps) {
       <div className={`${GLASS} rounded-2xl px-6 py-3 text-center`}>
         <h1 className="text-2xl font-bold">Hi! I’m Sebika</h1>
         <p className="mt-1 font-indie text-lg">
-          Software engineer, designer, and creative builder
+          Software engineer · ML infrastructure & full-stack apps
         </p>
       </div>
 
