@@ -10,6 +10,7 @@ import AboutSiteContent from "./components/sections/AboutSiteContent";
 import ExperienceContent from "./components/sections/ExperienceContent";
 import ProjectsContent from "./components/sections/ProjectsContent";
 import SkillsContent from "./components/sections/SkillsContent";
+import ResumeContent from "./components/sections/ResumeContent";
 import TopBar from "./components/desktop/TopBar";
 import Clouds from "./components/sky/Clouds";
 import Taskbar from "./components/desktop/Taskbar";
@@ -134,6 +135,8 @@ export default function App() {
         return <ProjectsContent />;
       case "skills":
         return <SkillsContent />;
+      case "resume":
+        return <ResumeContent />;
       case "contact":
         return <ContactContent />;
       case "about-site":
@@ -193,10 +196,14 @@ export default function App() {
                     zIndex={win.zIndex}
                     onFocus={() => bringToFront(win.id)}
                     scale={scale}
-                    // Terminal and Projects reach the window edges (no padding)
-                    bodyClassName={win.id === "terminal" || win.id === "projects" ? "" : undefined}
-                    width={win.id === "projects" ? 880 : undefined}
-                    height={win.id === "projects" ? 560 : undefined}
+                    // Terminal, Projects and Resume reach the window edges (no padding)
+                    bodyClassName={
+                      win.id === "terminal" || win.id === "projects" || win.id === "resume"
+                        ? ""
+                        : undefined
+                    }
+                    width={win.id === "projects" ? 880 : win.id === "resume" ? 720 : undefined}
+                    height={win.id === "projects" ? 560 : win.id === "resume" ? 600 : undefined}
                   >
                     {renderContent(win.id)}
                   </WindowShell>
