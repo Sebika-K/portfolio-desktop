@@ -168,11 +168,19 @@ export default function ContactContent() {
           </form>
         </div>
 
-        {/* Illustration side */}
+        {/* Illustration side: Sebika's drawing "Dreamers unite".
+            The PNG has a see-through background and black lines, so it sits
+            on the card in light mode. In dark mode, [.dark_&]:invert flips
+            the black lines to white so they show up on the navy card.
+            ("[.dark_&]" means "when an ancestor has the dark class", the
+            same class App.tsx puts on <html> for dark mode.) */}
         <div className="flex min-h-[320px] items-center justify-center rounded-2xl border border-line bg-panel/70 p-5 shadow-sm">
-          <div className="flex h-full w-full items-center justify-center rounded-2xl border border-dashed border-line-strong bg-card/60 text-center text-sm text-text-faint">
-            Contact Illustration / Graphic
-          </div>
+          <img
+            src="/contact/dreamers-unite.png"
+            alt="Hand-drawn illustration: three people floating, their heads hidden in one shared cloud that says “Dreamers unite”"
+            className="max-h-[300px] w-auto object-contain [.dark_&]:invert"
+            draggable={false}
+          />
         </div>
       </div>
     </div>
