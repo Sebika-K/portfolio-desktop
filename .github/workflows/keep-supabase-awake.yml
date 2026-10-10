@@ -1,15 +1,21 @@
 # Keeps the free Supabase project awake.
-# Free projects pause after 7 days with no activity, which would break the
-# guestbook. This asks the database one tiny question every 3 days so it
-# never counts as inactive. Runs on GitHub's servers — nothing to keep open.
+# Free projects pause after 7 days with no activity, which breaks the
+# guestbook. This asks the database a tiny question once a day so it never
+# counts as inactive. Runs on GitHub's servers — nothing to keep open.
+#
+# History: it used to run every 3 days with a plain read, and Supabase still
+# paused the project (Oct 2026). Now it runs DAILY and asks Postgres to
+# actually count rows ("Prefer: count=exact"), so a real database query
+# happens every time, with plenty of margin before the 7-day limit.
 
 name: Keep Supabase awake
 
 on:
   schedule:
     # "minute hour day-of-month month day-of-week", in UTC:
-    # 14:00 UTC (≈ 9 AM Central) on every 3rd day of the month.
-    - cron: "0 14 */3 * *"
+    # every day at 14:17 UTC (≈ 9 AM Central). Minute 17, not 0, because
+    # GitHub delays or skips jobs scheduled exactly on the hour when busy.
+    - cron: "17 14 * * *"
   # Also adds a "Run workflow" button on GitHub, so you can test it by hand.
   workflow_dispatch:
 
@@ -17,11 +23,15 @@ jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
-      - name: Ask the database for one approved entry
-        # --fail makes the job turn red (and GitHub emails you) if it errors.
+      - name: Ask the database to count guestbook entries
+        # --fail makes the job turn red (and GitHub emails you) if it errors,
+        # including when the project is already paused (Supabase answers 540).
+        # shell: bash turns on "pipefail", so a curl error can't hide behind grep.
+        shell: bash
         run: |
           curl --fail --silent --show-error \
             "${{ secrets.SUPABASE_URL }}/rest/v1/guestbook_entries?select=id&limit=1" \
             -H "apikey: ${{ secrets.SUPABASE_PUBLISHABLE_KEY }}" \
-            -o /dev/null
+            -H "Prefer: count=exact" \
+            -D - -o /dev/null | grep -i "^content-range"
           echo "Supabase is awake ✿"
