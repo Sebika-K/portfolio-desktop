@@ -54,9 +54,11 @@ export function runCommand(input: string): CommandResult {
       return {
         lines: [
           "Sebika Khulal",
-          "software engineer @ Utilyze, Inc. · Texas State CS '26",
+          "software engineer @ Develop for Good · Texas State CS '26",
           "full-stack dev, diving deep into AI/ML",
           "loves the sky, and a good sunset fixes everything.",
+          "",
+          "currently looking for a full-time SWE role → type `open resume`",
         ],
       };
 
