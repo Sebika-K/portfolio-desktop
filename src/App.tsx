@@ -11,6 +11,7 @@ import ExperienceContent from "./components/sections/ExperienceContent";
 import ProjectsContent from "./components/sections/ProjectsContent";
 import SkillsContent from "./components/sections/SkillsContent";
 import ResumeContent from "./components/sections/ResumeContent";
+import StickyNote from "./components/desktop/StickyNote";
 import TopBar from "./components/desktop/TopBar";
 import Clouds from "./components/sky/Clouds";
 import Taskbar from "./components/desktop/Taskbar";
@@ -218,6 +219,9 @@ export default function App() {
 
             {/* Icons sitting on the wallpaper (the old Home window is gone) */}
             <DesktopIcons onOpenSection={handleOpenSection} isMobile={isMobile} />
+
+            {/* "psst, recruiters!" note in the top-right corner */}
+            <StickyNote onOpenSection={handleOpenSection} />
 
             {/* The windows' "safe zone": an invisible box from just below the
                 top bar (top-9 = 36px) to just above the taskbar (bottom-12 =
