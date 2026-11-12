@@ -2,23 +2,25 @@ import type { SectionId } from "../../data/sections";
 
 type StickyNoteProps = {
   onOpenSection: (sectionId: SectionId) => void;
+  isMobile: boolean;
 };
 
 // A paper sticky note stuck to the desktop wallpaper, telling recruiters
-// I'm looking for a job. It sits in the top-right corner, just below the
-// top bar, away from the icon column on the left. Windows open on top of it, like real paper
+// I'm looking for a job. On a computer it sits in the top-right corner,
+// just below the top bar. On a phone the icons wrap into a second column
+// at the top, so there it moves to the empty bottom-right corner instead
+// (phones have no taskbar, so bottom-6 is just above the screen's edge). Windows open on top of it, like real paper
 // under real windows.
 //
 // To take it down once I've found a job: delete this file and the
 // <StickyNote /> line in App.tsx.
-export default function StickyNote({ onOpenSection }: StickyNoteProps) {
+export default function StickyNote({ onOpenSection, isMobile }: StickyNoteProps) {
   return (
     <aside
       aria-label="Note to recruiters"
       // -rotate-3: tilted like it was stuck on by hand.
       // hover:rotate-0: it straightens up when you point at it.
-      // top-16: just below the top bar.
-      className="absolute top-16 right-8 w-44 -rotate-3 transition-transform duration-200 hover:rotate-0"
+      className={`absolute right-8 w-44 ${isMobile ? "bottom-6" : "top-16"} -rotate-3 transition-transform duration-200 hover:rotate-0`}
     >
       {/* A strip of tape holding the note up */}
       <div

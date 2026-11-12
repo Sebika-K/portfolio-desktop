@@ -221,7 +221,7 @@ export default function App() {
             <DesktopIcons onOpenSection={handleOpenSection} isMobile={isMobile} />
 
             {/* "psst, recruiters!" note in the top-right corner */}
-            <StickyNote onOpenSection={handleOpenSection} />
+            <StickyNote onOpenSection={handleOpenSection} isMobile={isMobile} />
 
             {/* The windows' "safe zone": an invisible box from just below the
                 top bar (top-9 = 36px) to just above the taskbar (bottom-12 =
