@@ -6,7 +6,7 @@ import { projects } from "../../data/projects"
 // and everything about the selected one on the right.
 // On phones (below md) the list becomes a row of pills above the details.
 export default function ProjectsContent() {
-  // Which project is open. Starts on the first one (VoltStream).
+  // Which project is open. Starts on the first one (MOAT).
   const [selectedId, setSelectedId] = useState(projects[0].id)
   const selected = projects.find((p) => p.id === selectedId) ?? projects[0]
 

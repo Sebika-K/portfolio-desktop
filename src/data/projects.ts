@@ -26,6 +26,30 @@ export type Project = {
 
 export const projects: Project[] = [
   {
+    id: "moat",
+    title: "MOAT",
+    kind: "Hackathon",
+    tagline:
+      "A privacy guard that stops AI research agents from leaking company secrets through their web searches.",
+    description:
+      "Research agents read a company's internal documents and then search the web, and a search query can quietly give a secret away, either directly or by narrowing it down across several harmless-looking searches. MOAT sits between the agent and search and passes, rewrites or blocks each query before it goes out. Built by a team of three for Meta's Global AI Developer Hackathon; I was the full-stack engineer, building the FastAPI and Server-Sent Events backend, the React app and the replay UI.",
+    highlights: [
+      "A live view that streams the agent's searches over Server-Sent Events, turning 16 event types into a side-by-side comparison of each query passed, rewritten or blocked, with and without the guard.",
+      "Replay of real recorded model calls through the same stream, so hackathon judges could run the full demo with one command and no API key.",
+      "A results dashboard for 60 scored agent runs and a 150-attack suite, where the guard caught 145 of 150 attacks.",
+      "Merged 16 pull requests and wrote 14 API tests that keep test data separate from the repo.",
+    ],
+    tech: ["Python", "FastAPI", "Server-Sent Events", "React", "TypeScript", "pytest", "Meta Model API"],
+    githubUrl: "https://github.com/atty57/GUARD",
+    demoUrl: "https://www.youtube.com/watch?v=lwzWr63mvPI",
+    media: [
+      { type: "video", src: "/projects/moat/animation.mp4", caption: "The landing animation: a spy reads the agent's searches, with and without MOAT" },
+      { type: "image", src: "/projects/moat/home.webp", caption: "Every search is a tiny leak: pass, rewrite or block" },
+      { type: "image", src: "/projects/moat/compare.webp", caption: "One agent, two outcomes: the same run with and without the guard" },
+      { type: "image", src: "/projects/moat/results.webp", caption: "Results: leak scores across four conditions, with confidence ranges" },
+    ],
+  },
+  {
     id: "voltstream",
     title: "VoltStream",
     kind: "Personal project",
