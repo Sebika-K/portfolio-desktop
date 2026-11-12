@@ -5,7 +5,7 @@ export const about = {
   tagline: "software engineer",
 
   // Little pills under your name
-  badges: ["Software Engineer @ Utilyze, Inc."],
+  badges: ["Software Engineer @ Develop for Good"],
 
   intro: [
     "I build software: the whole thing, front to back, and lately the AI parts too. Coding came first, design snuck in along the way, and right now I’m mostly curious about how machine learning actually works (and when it doesn’t).",
@@ -13,8 +13,8 @@ export const about = {
   ],
 
   currently: [
-    "engineering at Utilyze, a startup training AI models for biology",
-    "recovering from VoltStream, where 100+ pretend batteries taught me a simple physics formula can beat three ML models",
+    "engineering at Develop for Good, testing how Sparky, an AI learning coach, actually coaches",
+    "fresh off MOAT, a hackathon project that stops AI agents from leaking secrets through their web searches",
     "learning ML the fun way: by building things and breaking them",
   ],
 
