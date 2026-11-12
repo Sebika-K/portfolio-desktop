@@ -15,12 +15,26 @@ export type ExperienceItem = {
 
 export const experiences: ExperienceItem[] = [
   {
+    id: "develop-for-good",
+    company: "Develop for Good · Cambio Labs",
+    role: "Software Engineer",
+    type: "Part-time",
+    period: "Nov 2026 – Present",
+    current: true,
+    summary:
+      "Auditing and integrating Sparky, an AI learning coach for Journey, an edtech platform serving about 1,000 low-income learners ages 13–35.",
+    bullets: [
+      "Part of an engineering team auditing and integrating Sparky into Journey, Cambio Labs' learning platform.",
+      "Evaluating how Sparky coaches learners with an LLM-as-judge testing harness that runs across multiple hosted models.",
+    ],
+    tech: ["LLM APIs", "LLM-as-judge", "AI evaluation", "Python"],
+  },
+  {
     id: "utilyze",
     company: "Utilyze, Inc.",
     role: "Software Engineer",
     type: "Full-time",
-    period: "Sep 2026 – Present",
-    current: true,
+    period: "Sep 2026 – Nov 2026",
     summary: "ML infrastructure for a transformer model trained on biological data.",
     bullets: [
       "Built reproducible ML training infrastructure in PyTorch, with hashed, tamper-evident checkpoints and full run provenance (seed, data version, config, compute) so any result can be traced and re-run.",
