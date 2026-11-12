@@ -5,8 +5,8 @@ type StickyNoteProps = {
 };
 
 // A paper sticky note stuck to the desktop wallpaper, telling recruiters
-// I'm looking for a job. It sits in the top-right corner, away from the
-// icon column on the left. Windows open on top of it, like real paper
+// I'm looking for a job. It sits in the top-right corner, just below the
+// top bar, away from the icon column on the left. Windows open on top of it, like real paper
 // under real windows.
 //
 // To take it down once I've found a job: delete this file and the
@@ -17,34 +17,53 @@ export default function StickyNote({ onOpenSection }: StickyNoteProps) {
       aria-label="Note to recruiters"
       // -rotate-3: tilted like it was stuck on by hand.
       // hover:rotate-0: it straightens up when you point at it.
-      className="absolute right-8 top-16 w-52 -rotate-3 transition-transform duration-200 hover:rotate-0"
+      // top-16: just below the top bar.
+      className="absolute top-16 right-8 w-44 -rotate-3 transition-transform duration-200 hover:rotate-0"
     >
       {/* A strip of tape holding the note up */}
       <div
         aria-hidden="true"
-        className="absolute -top-2.5 left-1/2 h-5 w-16 -translate-x-1/2 rotate-2 bg-white/60"
+        className="absolute -top-2 left-1/2 h-4 w-14 -translate-x-1/2 rotate-2 bg-white/60"
       />
 
+      {/* A little flower doodle in the corner: five round petals around a
+          center, drawn with outlines only so it looks hand-drawn. */}
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 40 40"
+        className="absolute -right-2 -top-3 h-9 w-9 rotate-12"
+        fill="none"
+        stroke="#c2577e"
+        strokeWidth="1.6"
+      >
+        <circle cx="20" cy="10" r="6" fill="#fbd5e3" />
+        <circle cx="29.5" cy="17" r="6" fill="#fbd5e3" />
+        <circle cx="26" cy="28" r="6" fill="#fbd5e3" />
+        <circle cx="14" cy="28" r="6" fill="#fbd5e3" />
+        <circle cx="10.5" cy="17" r="6" fill="#fbd5e3" />
+        <circle cx="20" cy="20" r="4" fill="#fde68a" />
+      </svg>
+
       {/* The note itself. Fixed paper colors (not theme colors), because a
-          sticky note is yellow paper in light mode and dark mode alike. */}
-      <div className="bg-[#fde68a] px-4 pb-3 pt-4 text-[#5b4214] shadow-md">
-        <p className="font-indie text-xl leading-tight">psst, recruiters!</p>
-        <p className="mt-1.5 text-sm leading-snug">
+          sticky note is soft pink paper in light mode and dark mode alike. */}
+      <div className="bg-[#fdf0f4] px-3.5 pb-2.5 pt-3.5 text-[#7a3550] shadow-md">
+        <p className="font-indie text-lg leading-tight">psst, recruiters!</p>
+        <p className="mt-1 text-xs leading-snug">
           I&rsquo;m looking for a full-time software engineering role.
         </p>
 
-        <div className="mt-3 flex flex-col items-start gap-1 font-indie text-lg leading-tight">
+        <div className="mt-2 flex flex-col items-start gap-0.5 font-indie text-base leading-tight">
           <button
             type="button"
             onClick={() => onOpenSection("resume")}
-            className="underline decoration-wavy decoration-1 underline-offset-4 hover:text-[#c2410c]"
+            className="underline decoration-wavy decoration-1 underline-offset-4 hover:text-[#c2577e]"
           >
             &rarr; read my resume
           </button>
           <button
             type="button"
             onClick={() => onOpenSection("contact")}
-            className="underline decoration-wavy decoration-1 underline-offset-4 hover:text-[#c2410c]"
+            className="underline decoration-wavy decoration-1 underline-offset-4 hover:text-[#c2577e]"
           >
             &rarr; say hi
           </button>
