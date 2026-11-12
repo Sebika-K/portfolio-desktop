@@ -51,7 +51,11 @@ export default function ProjectDetail({ project }: ProjectDetailProps) {
         </div>
       </header>
 
-      {project.media && project.media.length > 0 && <MediaStrip media={project.media} />}
+      {project.media && project.media.length > 0 && (
+        // key: a fresh strip for each project, so one project's video size
+        // doesn't carry over to the next.
+        <MediaStrip key={project.id} media={project.media} />
+      )}
 
       <section>
         <SectionLabel>About</SectionLabel>
